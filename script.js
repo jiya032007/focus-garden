@@ -1,10 +1,26 @@
 let seconds = 0;
 let timerInterval = null;
 
+function updateDisplay() {
+    document.getElementById('timer').innerText = seconds + "s";
+}
+
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
     timerInterval = setInterval(() => {
         seconds++;
-        document.getElementById('timer').innerText = seconds + "s";
+        updateDisplay();
     }, 1000);
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    seconds = 0;
+    updateDisplay();
 });
