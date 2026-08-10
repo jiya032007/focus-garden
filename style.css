@@ -1,0 +1,8 @@
+#plant {
+    width: 20px;
+    height: 20px;
+    background-color: #7cb342;
+    border-radius: 50%;
+    margin: 30px auto;
+    transition: width 0.5s ease, height 0.5s ease;
+}
