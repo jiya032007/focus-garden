@@ -3,7 +3,7 @@ let timerInterval = null;
 
 function updateDisplay() {
     document.getElementById('timer').innerText = seconds + "s";
-    const size = 20 + seconds; 
+    const size = Math.min(20 + seconds * 0.1, 200); 
     document.getElementById('plant').style.width = size + "px";
     document.getElementById('plant').style.height = size + "px";
 }
