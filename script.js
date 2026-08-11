@@ -6,6 +6,11 @@ function updateDisplay() {
     const size = Math.min(20 + seconds * 0.1, 200); 
     document.getElementById('plant').style.width = size + "px";
     document.getElementById('plant').style.height = size + "px";
+
+    let stage = "Sprout";
+    if (seconds > 60) stage = "Growing";
+    if (seconds > 300) stage = "Blooming";
+    document.getElementById('stage').innerText = stage;
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
