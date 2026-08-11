@@ -15,6 +15,9 @@ function updateDisplay() {
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
+    document.getElementById('stage').style.animation = 'none';
+    document.getElementById('stage').offsetHeight;
+    document.getElementById('stage').style.animation = 'popIn 0.4s ease forwards';
     timerInterval = setInterval(() => {
         seconds++;
         updateDisplay();
