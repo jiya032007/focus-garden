@@ -15,16 +15,6 @@ button {
     font-size: 16px;
 }
 
-#plant {
-    width: 20px;
-    height: 20px;
-    background-color: #7cb342;
-    border-radius: 50%;
-    margin: 30px auto;
-    transition: width 0.5s ease, height 0.5s ease;
-    position: relative;
-}
-
 #stage {
     position: absolute;
     top: -25px;
@@ -43,4 +33,22 @@ button {
     to {
         transform: translateX(-50%) scale(1);
     }
+}
+
+#plant-container {
+    width: 200px;
+    height: 200px;
+    margin: 60px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#plant {
+    width: 20px;
+    height: 20px;
+    background-color: #7cb342;
+    border-radius: 50%;
+    transition: width 0.5s ease, height 0.5s ease;
+    position: relative;
 }
