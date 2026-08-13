@@ -1,3 +1,4 @@
+// Focus Garden project
 let seconds = 0;
 let timerInterval = null;
 
