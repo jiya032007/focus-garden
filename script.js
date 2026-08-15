@@ -12,6 +12,12 @@ function updateDisplay() {
     if (seconds > 5) stage = "Growing";
     if (seconds > 15) stage = "Blooming";
     document.getElementById('stage').innerText = stage;
+
+    if (seconds > 5) {
+    document.getElementById('plant').classList.add('grown');
+} else {
+    document.getElementById('plant').classList.remove('grown');
+}
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
