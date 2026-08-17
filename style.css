@@ -99,3 +99,14 @@ button {
     height: 15px;
     opacity: 1;
 }
+body {
+    transition: background-color 1s ease;
+}
+
+body.stage-growing {
+    background-color: #f1f8e9;
+}
+
+body.stage-blooming {
+    background-color: #fce4ec;
+}

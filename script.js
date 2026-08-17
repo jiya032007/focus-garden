@@ -18,6 +18,9 @@ function updateDisplay() {
 } else {
     document.getElementById('plant').classList.remove('grown');
 }
+document.body.classList.remove('stage-growing', 'stage-blooming');
+if (seconds > 5) document.body.classList.add('stage-growing');
+if (seconds > 15) document.body.classList.add('stage-blooming');
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
