@@ -3,18 +3,18 @@ let seconds = 0;
 let timerInterval = null;
 
 function updateDisplay() {
-const hrs = Math.floor(seconds / 3600);
-const mins = Math.floor((seconds % 3600) / 60);
-const secs = seconds % 60;
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
 
-const display = 
-    (hrs > 0 ? hrs + ":" : "") + 
-    mins.toString().padStart(2, '0') + ":" + 
-    secs.toString().padStart(2, '0');
+    const display = 
+        (hrs > 0 ? hrs + ":" : "") + 
+        mins.toString().padStart(2, '0') + ":" + 
+        secs.toString().padStart(2, '0');
 
-document.getElementById('timer').innerText = display;
+    document.getElementById('timer').innerText = display;
 
-const size = Math.min(20 + seconds * 0.06, 200); 
+    const size = Math.min(20 + seconds * 0.06, 200); 
     document.getElementById('plant').style.width = size + "px";
     document.getElementById('plant').style.height = size + "px";
 
