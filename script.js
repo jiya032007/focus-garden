@@ -8,19 +8,21 @@ function updateDisplay() {
     document.getElementById('plant').style.width = size + "px";
     document.getElementById('plant').style.height = size + "px";
 
-   let stage = "Sprout";
-if (seconds > 900) stage = "Growing";
-if (seconds > 2700) stage = "Blooming";
-document.getElementById('stage').innerText = stage;
+    let stage = "Sprout";
+    if (seconds > 900) stage = "Growing";
+    if (seconds > 2700) stage = "Blooming";
+    document.getElementById('stage').innerText = stage;
 
     if (seconds > 900) {
-    document.getElementById('plant').classList.add('grown');
-} else {
-    document.getElementById('plant').classList.remove('grown');
+        document.getElementById('plant').classList.add('grown');
+    } else {
+        document.getElementById('plant').classList.remove('grown');
+    }
+
+    document.body.classList.remove('stage-growing', 'stage-blooming');
+    if (seconds > 900) document.body.classList.add('stage-growing');
+    if (seconds > 2700) document.body.classList.add('stage-blooming');
 }
-document.body.classList.remove('stage-growing', 'stage-blooming');
-if (seconds > 900) document.body.classList.add('stage-growing');
-if (seconds > 2700) document.body.classList.add('stage-blooming');
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
