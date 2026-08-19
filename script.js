@@ -45,7 +45,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     }, 1000);
 });
 
-document.getElementById('pauseBtn').addEventListener('click', () => {
+ocument.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
 });
@@ -55,4 +55,4 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     timerInterval = null;
     seconds = 0;
     updateDisplay();
-});
+}) ;
