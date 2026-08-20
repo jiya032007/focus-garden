@@ -45,7 +45,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     }, 1000);
 });
 
-ocument.getElementById('pauseBtn').addEventListener('click', () => {
+document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
 });
@@ -56,3 +56,10 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     seconds = 0;
     updateDisplay();
 }) ;
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        alert("You left the tab! Timer paused.");
+    }
+});
