@@ -34,13 +34,16 @@ function updateDisplay() {
     if (seconds > 2700) document.body.classList.add('stage-blooming');
 }
 
+let startTime = null;
+
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
+    startTime = Date.now() - (seconds * 1000);
     document.getElementById('stage').style.animation = 'none';
     document.getElementById('stage').offsetHeight;
     document.getElementById('stage').style.animation = 'popIn 0.4s ease forwards';
     timerInterval = setInterval(() => {
-        seconds++;
+        seconds = Math.floor((Date.now() - startTime) / 1000);
         updateDisplay();
     }, 1000);
 });
