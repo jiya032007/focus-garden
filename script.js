@@ -66,3 +66,16 @@ document.addEventListener('visibilitychange', () => {
         alert("You left the tab! Timer paused.");
     }
 });
+let currentMode = 'strict';
+
+document.getElementById('strictModeBtn').addEventListener('click', () => {
+    currentMode = 'strict';
+    document.getElementById('strictModeBtn').classList.add('active');
+    document.getElementById('flexibleModeBtn').classList.remove('active');
+});
+
+document.getElementById('flexibleModeBtn').addEventListener('click', () => {
+    currentMode = 'flexible';
+    document.getElementById('flexibleModeBtn').classList.add('active');
+    document.getElementById('strictModeBtn').classList.remove('active');
+});
