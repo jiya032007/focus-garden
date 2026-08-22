@@ -124,16 +124,37 @@ body.stage-blooming {
 }
 .mode-selector {
     display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 20px;
+    background-color: #eeeeee;
+    padding: 4px;
+    border-radius: 25px;
 }
 
 .mode-btn {
-    padding: 8px 16px;
-    border: 2px solid #7cb342;
-    background: white;
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
     border-radius: 20px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background-color: #7cb342;
+    color: white;
+    box-shadow: 0 2px 8px rgba(124, 179, 66, 0.4);
+}
+
+.mode-btn:hover {
+    color: #7cb342;
+}
+
+.mode-btn.active:hover {
+    color: white;
 }
 
 .mode-btn.active {
