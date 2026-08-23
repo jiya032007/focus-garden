@@ -59,11 +59,18 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     seconds = 0;
     updateDisplay();
 }) ;
+let tabSwitchCount = 0;
+
 document.addEventListener('visibilitychange', () => {
     if (document.hidden && timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-        alert("You left the tab! Timer paused.");
+        if (currentMode === 'strict') {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert("You left the tab! Timer paused (Strict Mode).");
+        } else {
+            tabSwitchCount++;
+            console.log("Tab switches so far:", tabSwitchCount);
+        }
     }
 });
 let currentMode = 'strict';
