@@ -186,3 +186,52 @@ h1 {
     color: #333;
     margin-bottom: 40px;
 }
+
+body {
+    background-color: #f5f1e8;
+    color: #3a3a3a;
+}
+
+.sidebar {
+    background-color: #2d4a3e;
+    box-shadow: none;
+}
+
+#timer {
+    color: #f5f1e8;
+}
+
+.mode-selector {
+    background-color: rgba(245, 241, 232, 0.15);
+}
+
+.mode-btn {
+    color: #f5f1e8;
+}
+
+.mode-btn.active {
+    background-color: #c17a56;
+    color: white;
+    box-shadow: none;
+}
+
+button {
+    background-color: #c17a56;
+    color: white;
+}
+
+button:hover {
+    background-color: #a8663f;
+}
+
+#plant {
+    background-color: #4a6b52;
+}
+
+.leaf {
+    background-color: #4a6b52;
+}
+
+h1 {
+    color: #2d4a3e;
+}
