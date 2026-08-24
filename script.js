@@ -57,8 +57,10 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
     seconds = 0;
+    tabSwitchCount = 0;
+    document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
-}) ;
+});
 let tabSwitchCount = 0;
 
 document.addEventListener('visibilitychange', () => {
