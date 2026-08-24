@@ -45,6 +45,7 @@ let startTime = null;
 
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
+    recordTodayUsage();
     startTime = Date.now() - (seconds * 1000);
     document.getElementById('stage').style.animation = 'none';
     document.getElementById('stage').offsetHeight;
@@ -98,3 +99,26 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
     document.getElementById('strictModeBtn').classList.remove('active');
     document.getElementById('switchCount').style.display = 'block';
 });
+
+function recordTodayUsage() {
+    const today = new Date().toDateString();
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (!usedDays.includes(today)) {
+        usedDays.push(today);
+        localStorage.setItem('usedDays', JSON.stringify(usedDays));
+    }
+}
+
+function checkUnlocks() {
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    const totalDays = usedDays.length;
+
+    if (totalDays >= 1) {
+        document.getElementById('notepadUnlock').style.display = 'block';
+    }
+    if (totalDays >= 3) {
+        // calculator unlock will go here later
+    }
+}
+
+checkUnlocks();
