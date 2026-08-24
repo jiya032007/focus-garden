@@ -14,20 +14,19 @@ function updateDisplay() {
 
     document.getElementById('timer').innerText = display;
 
-    const size = Math.min(20 + seconds * 0.06, 200); 
-    document.getElementById('plant').style.width = size + "px";
-    document.getElementById('plant').style.height = size + "px";
-
+    const size = Math.min(60 + seconds * 0.06, 200); 
+document.getElementById('plant-svg').style.width = size + "px";
+document.getElementById('plant-svg').style.height = size + "px";
     let stage = "Sprout";
     if (seconds > 900) stage = "Growing";
     if (seconds > 2700) stage = "Blooming";
     document.getElementById('stage').innerText = stage;
 
-    if (seconds > 900) {
-        document.getElementById('plant').classList.add('grown');
-    } else {
-        document.getElementById('plant').classList.remove('grown');
-    }
+   if (seconds > 900) {
+    document.getElementById('plant-wrapper').classList.add('grown');
+} else {
+    document.getElementById('plant-wrapper').classList.remove('grown');
+}
 
     document.body.classList.remove('stage-growing', 'stage-blooming');
     if (seconds > 900) document.body.classList.add('stage-growing');
