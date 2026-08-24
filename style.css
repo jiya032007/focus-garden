@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 body {
     text-align: center;
     font-family: Arial, sans-serif;
@@ -10,13 +11,14 @@ body {
 }
 
 .sidebar {
-    width: 200px;
-    padding: 30px 20px;
+    width: 220px;
+    padding: 40px 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    background-color: #f5f5f5;
+    gap: 18px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.05);
 }
 
 .main-area {
@@ -28,14 +30,28 @@ body {
 }
 
 #timer {
-    font-size: 48px;
-    margin: 20px 0;
+    font-size: 42px;
+    font-weight: 600;
+    color: #444;
+    margin: 10px 0;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     margin: 5px;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #7cb342;
+    color: white;
 }
 
 #stage {
@@ -100,7 +116,10 @@ button {
     opacity: 1;
 }
 body {
-    transition: background-color 1s ease;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #fafafa;
 }
 
 body.stage-growing {
@@ -160,4 +179,10 @@ body.stage-blooming {
 .mode-btn.active {
     background-color: #7cb342;
     color: white;
+}
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 40px;
 }
