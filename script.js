@@ -19,7 +19,7 @@ function updateDisplay() {
 
     let stage = "Sprout";
     if (seconds > 900) stage = "Growing";
-    if (seconds > 2700) stage = "Blooming";
+    if (seconds > 10) stage = "Blooming";
     document.getElementById('stage').innerText = stage;
 
     if (seconds > 900) {
@@ -32,7 +32,7 @@ function updateDisplay() {
     if (seconds > 900) document.body.classList.add('stage-growing');
     if (seconds > 2700) document.body.classList.add('stage-blooming');
 
-    if (seconds > 2700) {
+    if (seconds > 10) {
         document.getElementById('plant-svg').style.display = 'none';
         document.getElementById('flower-svg').style.display = 'block';
     } else {
