@@ -1,7 +1,6 @@
 // Focus Garden project
 let seconds = 0;
 let timerInterval = null;
-
 function updateDisplay() {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -15,22 +14,31 @@ function updateDisplay() {
     document.getElementById('timer').innerText = display;
 
     const size = Math.min(60 + seconds * 0.06, 200); 
-document.getElementById('plant-svg').style.width = size + "px";
-document.getElementById('plant-svg').style.height = size + "px";
+    document.getElementById('plant-svg').style.width = size + "px";
+    document.getElementById('plant-svg').style.height = size + "px";
+
     let stage = "Sprout";
     if (seconds > 900) stage = "Growing";
     if (seconds > 2700) stage = "Blooming";
     document.getElementById('stage').innerText = stage;
 
-   if (seconds > 900) {
-    document.getElementById('plant-wrapper').classList.add('grown');
-} else {
-    document.getElementById('plant-wrapper').classList.remove('grown');
-}
+    if (seconds > 900) {
+        document.getElementById('plant-wrapper').classList.add('grown');
+    } else {
+        document.getElementById('plant-wrapper').classList.remove('grown');
+    }
 
     document.body.classList.remove('stage-growing', 'stage-blooming');
     if (seconds > 900) document.body.classList.add('stage-growing');
     if (seconds > 2700) document.body.classList.add('stage-blooming');
+
+    if (seconds > 2700) {
+        document.getElementById('plant-svg').style.display = 'none';
+        document.getElementById('flower-svg').style.display = 'block';
+    } else {
+        document.getElementById('plant-svg').style.display = 'block';
+        document.getElementById('flower-svg').style.display = 'none';
+    }
 }
 
 let startTime = null;
