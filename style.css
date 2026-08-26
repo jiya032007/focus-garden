@@ -235,3 +235,18 @@ button:hover {
 h1 {
     color: #2d4a3e;
 }
+#plant-wrapper {
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+#plant-svg {
+    transition: width 0.5s ease, height 0.5s ease;
+}
+
+#plant-wrapper.grown {
+    animation: breathe 2s ease-in-out infinite;
+}
+#timer {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
