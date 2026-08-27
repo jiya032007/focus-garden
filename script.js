@@ -122,3 +122,10 @@ function checkUnlocks() {
 }
 
 checkUnlocks();
+function updateTodayTotal() {
+    const today = new Date().toDateString();
+    let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const minutesToday = dailyMinutes[today] || 0;
+    document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
+}
+updateTodayTotal();ss
