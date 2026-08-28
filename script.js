@@ -128,4 +128,18 @@ function updateTodayTotal() {
     const minutesToday = dailyMinutes[today] || 0;
     document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
 }
-updateTodayTotal();ss
+updateTodayTotal();
+
+function saveSessionMinutes(minutesToAdd) {
+    const today = new Date().toDateString();
+    let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
+    localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
+    updateTodayTotal();
+}
+document.getElementById('pauseBtn').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    const minutesThisSession = Math.floor(seconds / 60);
+    saveSessionMinutes(minutesThisSession);
+});
