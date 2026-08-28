@@ -129,13 +129,13 @@ function updateTodayTotal() {
     document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
 }
 updateTodayTotal();
-
 function saveSessionMinutes(minutesToAdd) {
     const today = new Date().toDateString();
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
+    checkUnlocks();
 }
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
@@ -143,3 +143,15 @@ document.getElementById('pauseBtn').addEventListener('click', () => {
     const minutesThisSession = Math.floor(seconds / 60);
     saveSessionMinutes(minutesThisSession);
 });
+function getTotalMinutes() {
+    let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    return Object.values(dailyMinutes).reduce((sum, mins) => sum + mins, 0);
+}
+
+function checkUnlocks() {
+    const totalMinutes = getTotalMinutes();
+
+    if (totalMinutes >= 60) {
+        document.getElementById('notepadUnlock').style.display = 'block';
+    }
+}
