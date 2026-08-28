@@ -129,6 +129,7 @@ function updateTodayTotal() {
     document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
 }
 updateTodayTotal();
+updateUnlockProgress();
 function saveSessionMinutes(minutesToAdd) {
     const today = new Date().toDateString();
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
@@ -136,6 +137,7 @@ function saveSessionMinutes(minutesToAdd) {
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
     checkUnlocks();
+    updateUnlockProgress();
 }
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
@@ -151,8 +153,8 @@ function getTotalMinutes() {
 function checkUnlocks() {
     const totalMinutes = getTotalMinutes();
 
-    if (totalMinutes >= 60 && !localStorage.getItem('notepadUnlocked')) {
-        document.getElementById('notepadUnlock').style.display = 'block';
+if (totalMinutes >= 1 && !localStorage.getItem('notepadUnlocked')) {
+            document.getElementById('notepadUnlock').style.display = 'block';
         showUnlockBanner("🎉 Notepad unlocked!");
         localStorage.setItem('notepadUnlocked', 'true');
     }
@@ -166,4 +168,15 @@ function showUnlockBanner(message) {
     setTimeout(() => {
         banner.classList.remove('show');
     }, 3000);
+}
+
+function updateUnlockProgress() {
+    const totalMinutes = getTotalMinutes();
+    if (!localStorage.getItem('notepadUnlocked')) {
+        const remaining = 60 - totalMinutes;
+        document.getElementById('unlockProgress').innerText = 
+            remaining > 0 ? remaining + " min to unlock Notepad" : "Almost there!";
+    } else {
+        document.getElementById('unlockProgress').innerText = "";
+    }
 }
