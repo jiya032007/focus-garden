@@ -151,7 +151,19 @@ function getTotalMinutes() {
 function checkUnlocks() {
     const totalMinutes = getTotalMinutes();
 
-    if (totalMinutes >= 60) {
+    if (totalMinutes >= 60 && !localStorage.getItem('notepadUnlocked')) {
         document.getElementById('notepadUnlock').style.display = 'block';
+        showUnlockBanner("🎉 Notepad unlocked!");
+        localStorage.setItem('notepadUnlocked', 'true');
     }
+}
+
+function showUnlockBanner(message) {
+    const banner = document.getElementById('unlockBanner');
+    banner.innerText = message;
+    banner.style.display = 'block';
+    banner.classList.add('show');
+    setTimeout(() => {
+        banner.classList.remove('show');
+    }, 3000);
 }
