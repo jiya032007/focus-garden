@@ -175,7 +175,7 @@ function updateUnlockProgress() {
     if (!localStorage.getItem('notepadUnlocked')) {
         const remaining = 60 - totalMinutes;
         document.getElementById('unlockProgress').innerText = 
-            remaining > 0 ? remaining + " min to unlock Notepad" : "Almost there!";
+            remaining > 0 ? remaining + " min to unlock A SURPISE" : "Almost there!";
     } else {
         document.getElementById('unlockProgress').innerText = "";
     }
