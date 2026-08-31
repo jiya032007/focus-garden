@@ -82,7 +82,13 @@ function updateUnlockProgress() {
     const totalMinutes = getTotalMinutes();
     if (!localStorage.getItem('notepadUnlocked')) {
         const remaining = 1 - totalMinutes;
-        document.getElementById('unlockProgress').innerText = remaining > 0 ? remaining + " min to unlock a surprise" : "Almost there!";
+        
+        if (remaining <= 0.5 && remaining > 0 && !localStorage.getItem('suspenseShown')) {
+            showUnlockBanner("✨ Something's coming soon...");
+            localStorage.setItem('suspenseShown', 'true');
+        }
+
+        document.getElementById('unlockProgress').innerText = remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
     } else {
         document.getElementById('unlockProgress').innerText = "";
     }
