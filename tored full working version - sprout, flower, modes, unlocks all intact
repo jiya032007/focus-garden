@@ -1,0 +1,44 @@
+[33m97aa898[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m cleaned up and consolidated script.js - fixed duplicate functions
+[33m8adf512[m Made features work
+[33m91482e1[m added unlock progress hint and switch counter styling
+[33m3b77280[m added animated unlock notification banner
+[33md8ec703[m added hour-based unlock system using accumulated minutes
+[33mb0d046f[m added reward feature
+[33m6f33e35[m improved visibility of today's stat text
+[33m589fb9e[m connected today's stat display and unlock foundation
+[33m69a656a[m added subtle shadow to timer text
+[33m0ad67f0[m started localStorage foundation
+[33mf7ffa64[m added feature to see if it works
+[33m01ea2f4[m started localStorage foundation for multi-day unlock system
+[33mfef524f[m flower now blooms upward with richer color and better balanced petals - starting to feel alive
+[33m031455a[m added flower SVG swap for Blooming stage
+[33m85c2443[m replaced plain circle with cute hand-drawn-style SVG sprout
+[33m2e95ac9[m applied richer earthy color palette - forest green and terracotta instead of default green/white
+[33m795505c[m major visual polish - new font, refined spacing, cohesive button styling
+[33me90c72b[m reset tab-switch counter when Reset button is clicked
+[33mb2a4078[m made tab-switch counter visible to user in Flexible Mode
+[33m1c2c293[m made tab-switch behavior mode-aware - strict mode pauses, flexible mode tracks silently
+[33m3ae39fd[m made mode buttons functional - clicking now switches between Strict and Flexible
+[33mf3c1d08[m polished mode selector styling - smoother toggle-style design
+[33m5eb1732[m added mode selector UI for Strict and Flexible focus modes
+[33m4018b0e[m fixed timer accuracy using real timestamps instead of relying on interval ticks
+[33m7b8d149[m added tab-switch detection - timer pauses automatically if you leave the tab
+[33mfbff521[m bug fix
+[33mf8d49d8[m formatted timer display as proper hours:minutes:seconds
+[33mc9debff[m added a gentle breathing glow to the plant once it's grown
+[33mf46b088[m added a gentle breathing glow to the plant once it's grown
+[33mc3acb59[m set realistic growth timing - 15 min to Growing, 45 min to Blooming
+[33m4eaf841[m added background color shift tied to growth stages
+[33mddde15e[m added animated leaves that grow in as the plant reaches its Growing stage
+[33me8a565b[m Ran project to finalize future feature
+[33mcc408de[m adjusted old changes
+[33m199b3be[m restructured layout with sidebar and centered plant area
+[33md9383d9[m fixed layout stability - plant now grows within a reserved space instead of pushing buttons around
+[33maed7d33[m added animated stage badge that pops in on start
+[33m7f80149[m added animated stage badge popup near plant
+[33mbfbcea4[m added growth stage labels
+[33m6278caa[m capped plant growth and slowed growth rate
+[33m74657d7[m added growing plant tied to timer
+[33m2eeb8e8[m added pause and reset buttons with working timer controls
+[33m8be1c2a[m connected start button to timer
+[33mce1bb36[m started focus garden project - basic timer

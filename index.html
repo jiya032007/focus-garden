@@ -9,8 +9,9 @@
     <div class="app-container">
         <div class="sidebar">
             <div id="timer">00:00</div>
-<div id="todayTotal" style="font-size: 14px; margin-top: 5px; color: #f5f1e8; font-weight: 600;"></div>            <div id="switchCount" style="display: none;">Tab switches: 0</div>
-<div id="unlockProgress" style="font-size: 12px; margin-top: 5px; color: #f5f1e8;"></div>
+            <div id="todayTotal" style="font-size: 14px; margin-top: 5px; color: #f5f1e8; font-weight: 600;"></div>
+            <div id="switchCount" style="display: none;">Tab switches: 0</div>
+            <div id="unlockProgress" style="font-size: 12px; margin-top: 5px; color: #f5f1e8;"></div>
             <div class="mode-selector">
                 <button id="strictModeBtn" class="mode-btn active">Strict</button>
                 <button id="flexibleModeBtn" class="mode-btn">Flexible</button>
@@ -19,39 +20,33 @@
             <button id="pauseBtn">Pause</button>
             <button id="resetBtn">Reset</button>
             <div id="notepadUnlock" style="display: none;">
-    <textarea id="notepad" placeholder="Quick notes..." rows="4"></textarea>
-</div>
+                <textarea id="notepad" placeholder="Quick notes..." rows="4"></textarea>
+            </div>
         </div>
         <div class="main-area">
             <h1>Focus Garden</h1>
             <div id="plant-container">
                 <div id="plant-wrapper">
                     <svg id="plant-svg" width="60" height="60" viewBox="0 0 60 60">
-    <path d="M30 52 Q30 35 30 22" stroke="#4a6b52" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <path d="M30 28 Q16 24 14 12 Q26 10 30 28" fill="#8fcf52" stroke="#6ba33a" stroke-width="1"/>
-    <path d="M30 28 Q44 24 46 12 Q34 10 30 28" fill="#a3dd66" stroke="#6ba33a" stroke-width="1"/>
-    <circle cx="30" cy="20" r="3" fill="#6ba33a" opacity="0.5"/>
-</svg>
-
-                  <svg id="flower-svg" width="80" height="80" viewBox="0 0 80 80" style="display:none;">
-    <path d="M40 70 Q40 55 40 42" stroke="#4a6b52" stroke-width="3" fill="none" stroke-linecap="round"/>
-    
-    <ellipse cx="40" cy="18" rx="10" ry="13" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
-    <ellipse cx="55" cy="26" rx="12" ry="9" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
-    <ellipse cx="25" cy="26" rx="12" ry="9" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
-    
-    <ellipse cx="50" cy="18" rx="8" ry="10" fill="#f2789a" stroke="#c73e5f" stroke-width="1" transform="rotate(35 50 18)"/>
-    <ellipse cx="30" cy="18" rx="8" ry="10" fill="#f2789a" stroke="#c73e5f" stroke-width="1" transform="rotate(-35 30 18)"/>
-
-    <circle cx="40" cy="24" r="7" fill="#f4c542" stroke="#d9a916" stroke-width="1"/>
-</svg>
-
+                        <path d="M30 52 Q30 35 30 22" stroke="#4a6b52" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M30 28 Q16 24 14 12 Q26 10 30 28" fill="#8fcf52" stroke="#6ba33a" stroke-width="1"/>
+                        <path d="M30 28 Q44 24 46 12 Q34 10 30 28" fill="#a3dd66" stroke="#6ba33a" stroke-width="1"/>
+                        <circle cx="30" cy="20" r="3" fill="#6ba33a" opacity="0.5"/>
+                    </svg>
+                    <svg id="flower-svg" width="80" height="80" viewBox="0 0 80 80" style="display:none;">
+                        <path d="M40 70 Q40 55 40 42" stroke="#4a6b52" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <ellipse cx="40" cy="18" rx="10" ry="13" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
+                        <ellipse cx="55" cy="26" rx="12" ry="9" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
+                        <ellipse cx="25" cy="26" rx="12" ry="9" fill="#e8547a" stroke="#c73e5f" stroke-width="1"/>
+                        <ellipse cx="50" cy="18" rx="8" ry="10" fill="#f2789a" stroke="#c73e5f" stroke-width="1" transform="rotate(35 50 18)"/>
+                        <ellipse cx="30" cy="18" rx="8" ry="10" fill="#f2789a" stroke="#c73e5f" stroke-width="1" transform="rotate(-35 30 18)"/>
+                        <circle cx="40" cy="24" r="7" fill="#f4c542" stroke="#d9a916" stroke-width="1"/>
+                    </svg>
                     <div id="stage">Sprout</div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
