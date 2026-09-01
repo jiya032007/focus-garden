@@ -82,15 +82,27 @@ function updateUnlockProgress() {
     const totalMinutes = getTotalMinutes();
     if (!localStorage.getItem('notepadUnlocked')) {
         const remaining = 1 - totalMinutes;
-        
+        document.getElementById('unlockProgress').innerText = remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
+    } else {
+        document.getElementById('unlockProgress').innerText = "";
+    }
+}
+
+function updateLiveProgress(liveTotal) {
+    if (!localStorage.getItem('notepadUnlocked')) {
+        const remaining = 1 - liveTotal;
+
         if (remaining <= 0.5 && remaining > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
 
-        document.getElementById('unlockProgress').innerText = remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
-    } else {
-        document.getElementById('unlockProgress').innerText = "";
+        if (remaining <= 0) {
+            checkUnlocks();
+        }
+
+        document.getElementById('unlockProgress').innerText = 
+            remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
     }
 }
 
@@ -114,6 +126,12 @@ document.getElementById('startBtn').addEventListener('click', () => {
     timerInterval = setInterval(() => {
         seconds = Math.floor((Date.now() - startTime) / 1000);
         updateDisplay();
+
+        const currentSessionMinutes = seconds / 60;
+        const previousMinutes = getTotalMinutes();
+        const liveTotal = previousMinutes + currentSessionMinutes;
+
+        updateLiveProgress(liveTotal);
     }, 1000);
 });
 
