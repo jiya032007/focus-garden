@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 body {
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    background-color: #faf7fc;
+    color: #5c5470;
 }
 
 .app-container {
@@ -17,8 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 18px;
-    background-color: #ffffff;
-    box-shadow: 2px 0 15px rgba(0,0,0,0.05);
+    background-color: #5c5470;
 }
 
 .main-area {
@@ -32,8 +34,9 @@ body {
 #timer {
     font-size: 42px;
     font-weight: 600;
-    color: #444;
+    color: #faf7fc;
     margin: 10px 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button {
@@ -43,15 +46,35 @@ button {
     font-weight: 600;
     border: none;
     border-radius: 25px;
-    background-color: #f0f0f0;
-    color: #555;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #7cb342;
-    color: white;
+#startBtn {
+    background-color: #b5e5cf;
+    color: #5c5470;
+}
+
+#startBtn:hover {
+    background-color: #9dd9b8;
+}
+
+#pauseBtn {
+    background-color: #a8d8ea;
+    color: #5c5470;
+}
+
+#pauseBtn:hover {
+    background-color: #8cc9de;
+}
+
+#resetBtn {
+    background-color: #f4c2d7;
+    color: #5c5470;
+}
+
+#resetBtn:hover {
+    background-color: #eda3c1;
 }
 
 #stage {
@@ -66,6 +89,7 @@ button:hover {
     font-weight: bold;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     white-space: nowrap;
+    color: #5c5470;
 }
 
 @keyframes popIn {
@@ -83,158 +107,6 @@ button:hover {
     justify-content: center;
 }
 
-#plant {
-    width: 20px;
-    height: 20px;
-    background-color: #9adc54;
-    border-radius: 50%;
-    transition: width 0.5s ease, height 0.5s ease;
-    position: relative;
-}.leaf {
-    position: absolute;
-    width: 0;
-    height: 0;
-    background-color: #7cb342;
-    border-radius: 50%;
-    opacity: 0;
-    transition: all 0.5s ease;
-}
-
-.leaf-left {
-    left: -15px;
-    top: 5px;
-}
-
-.leaf-right {
-    right: -15px;
-    top: 5px;
-}
-
-#plant.grown .leaf {
-    width: 25px;
-    height: 15px;
-    opacity: 1;
-}
-body {
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    background-color: #fafafa;
-}
-
-body.stage-growing {
-    background-color: #f1f8e9;
-}
-
-body.stage-blooming {
-    background-color: #fce4ec;
-}
-#plant.grown {
-    animation: breathe 2s ease-in-out infinite;
-}
-
-@keyframes breathe {
-    0%, 100% {
-        box-shadow: 0 0 10px rgba(124, 179, 66, 0.4);
-    }
-    50% {
-        box-shadow: 0 0 25px rgba(124, 179, 66, 0.7);
-    }
-}
-.mode-selector {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    background-color: #eeeeee;
-    padding: 4px;
-    border-radius: 25px;
-}
-
-.mode-btn {
-    padding: 8px 18px;
-    border: none;
-    background: transparent;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    transition: all 0.3s ease;
-}
-
-.mode-btn.active {
-    background-color: #7cb342;
-    color: white;
-    box-shadow: 0 2px 8px rgba(124, 179, 66, 0.4);
-}
-
-.mode-btn:hover {
-    color: #7cb342;
-}
-
-.mode-btn.active:hover {
-    color: white;
-}
-
-.mode-btn.active {
-    background-color: #7cb342;
-    color: white;
-}
-h1 {
-    font-size: 32px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 40px;
-}
-
-body {
-    background-color: #f5f1e8;
-    color: #3a3a3a;
-}
-
-.sidebar {
-    background-color: #2d4a3e;
-    box-shadow: none;
-}
-
-#timer {
-    color: #f5f1e8;
-}
-
-.mode-selector {
-    background-color: rgba(245, 241, 232, 0.15);
-}
-
-.mode-btn {
-    color: #f5f1e8;
-}
-
-.mode-btn.active {
-    background-color: #c17a56;
-    color: white;
-    box-shadow: none;
-}
-
-button {
-    background-color: #c17a56;
-    color: white;
-}
-
-button:hover {
-    background-color: #a8663f;
-}
-
-#plant {
-    background-color: #4a6b52;
-}
-
-.leaf {
-    background-color: #4a6b52;
-}
-
-h1 {
-    color: #2d4a3e;
-}
 #plant-wrapper {
     position: relative;
     transition: transform 0.5s ease;
@@ -247,8 +119,64 @@ h1 {
 #plant-wrapper.grown {
     animation: breathe 2s ease-in-out infinite;
 }
-#timer {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+@keyframes breathe {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(200, 182, 226, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(200, 182, 226, 0.7);
+    }
+}
+
+body.stage-growing {
+    background-color: #eaf7f0;
+}
+
+body.stage-blooming {
+    background-color: #fce8f3;
+}
+
+.mode-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    background-color: rgba(250, 247, 252, 0.15);
+    padding: 4px;
+    border-radius: 25px;
+}
+
+.mode-btn {
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #faf7fc;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background-color: #c8b6e2;
+    color: #5c5470;
+    box-shadow: none;
+}
+
+.mode-btn:hover {
+    color: #c8b6e2;
+}
+
+.mode-btn.active:hover {
+    color: #5c5470;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #5c5470;
+    margin-bottom: 40px;
 }
 
 #unlockBanner {
@@ -256,8 +184,8 @@ h1 {
     top: 20px;
     left: 50%;
     transform: translateX(-50%) translateY(-100px);
-    background-color: #c17a56;
-    color: white;
+    background-color: #c8b6e2;
+    color: #5c5470;
     padding: 12px 24px;
     border-radius: 25px;
     font-weight: bold;
@@ -271,12 +199,12 @@ h1 {
 }
 
 #switchCount {
-    background-color: #d7ecff;
-    color: #2d4a3e;
+    background-color: #f4c2d7;
+    color: #5c5470;
     padding: 6px 14px;
     border-radius: 15px;
     font-size: 13px;
     font-weight: 700;
     margin-top: 8px;
-    box-shadow: 0 2px 8px rgba(212, 147, 58, 0.4);
+    box-shadow: 0 2px 8px rgba(244, 194, 215, 0.4);
 }
