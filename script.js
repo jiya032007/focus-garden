@@ -192,4 +192,4 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
 
 checkUnlocks();
 updateTodayTotal();
-updateUnlockProgress();
+updateUnlockProgress(); //
