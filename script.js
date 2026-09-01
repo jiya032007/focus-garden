@@ -145,7 +145,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
-    const minutesThisSession = Math.floor(seconds / 60);
+    const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
 });
 
