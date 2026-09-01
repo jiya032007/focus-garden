@@ -88,21 +88,28 @@ function updateUnlockProgress() {
     }
 }
 
-function updateLiveProgress(liveTotal) {
-    if (!localStorage.getItem('notepadUnlocked')) {
-        const remaining = 1 - liveTotal;
+function formatTime(totalSeconds) {
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = Math.floor(totalSeconds % 60);
+    return (hrs > 0 ? hrs + ":" : "") + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
+}
 
-        if (remaining <= 0.5 && remaining > 0 && !localStorage.getItem('suspenseShown')) {
+function updateLiveProgress(liveTotalMinutes) {
+    if (!localStorage.getItem('notepadUnlocked')) {
+        const remainingSeconds = (1 - liveTotalMinutes) * 60;
+
+        if (remainingSeconds <= 30 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
 
-        if (remaining <= 0) {
+        if (remainingSeconds <= 0) {
             checkUnlocks();
         }
 
         document.getElementById('unlockProgress').innerText = 
-            remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
+            remainingSeconds > 0 ? formatTime(remainingSeconds) + " until surprise" : "Unlocked!";
     }
 }
 
