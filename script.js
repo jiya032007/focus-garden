@@ -185,6 +185,11 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
     document.getElementById('switchCount').style.display = 'block';
 });
 
+document.getElementById('devResetBtn').addEventListener('click', () => {
+    localStorage.clear();
+    location.reload();
+});
+
 checkUnlocks();
 updateTodayTotal();
 updateUnlockProgress();

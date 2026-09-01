@@ -5,7 +5,7 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     background-color: #faf7fc;
-    color: #5c5470;
+    color: #7c6a9c;
 }
 
 .app-container {
@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 18px;
-    background-color: #5c5470;
+    background-color: #9f8fc7;
 }
 
 .main-area {
@@ -89,7 +89,7 @@ button {
     font-weight: bold;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     white-space: nowrap;
-    color: #5c5470;
+    color: #7c6a9c;
 }
 
 @keyframes popIn {
@@ -122,10 +122,10 @@ button {
 
 @keyframes breathe {
     0%, 100% {
-        box-shadow: 0 0 10px rgba(200, 182, 226, 0.4);
+        box-shadow: 0 0 10px rgba(221, 214, 254, 0.4);
     }
     50% {
-        box-shadow: 0 0 25px rgba(200, 182, 226, 0.7);
+        box-shadow: 0 0 25px rgba(221, 214, 254, 0.7);
     }
 }
 
@@ -159,23 +159,23 @@ body.stage-blooming {
 }
 
 .mode-btn.active {
-    background-color: #c8b6e2;
-    color: #5c5470;
+    background-color: #ddd6fe;
+    color: #7c6a9c;
     box-shadow: none;
 }
 
 .mode-btn:hover {
-    color: #c8b6e2;
+    color: #ddd6fe;
 }
 
 .mode-btn.active:hover {
-    color: #5c5470;
+    color: #7c6a9c;
 }
 
 h1 {
     font-size: 32px;
     font-weight: 700;
-    color: #5c5470;
+    color: #7c6a9c;
     margin-bottom: 40px;
 }
 
@@ -184,8 +184,8 @@ h1 {
     top: 20px;
     left: 50%;
     transform: translateX(-50%) translateY(-100px);
-    background-color: #c8b6e2;
-    color: #5c5470;
+    background-color: #ddd6fe;
+    color: #7c6a9c;
     padding: 12px 24px;
     border-radius: 25px;
     font-weight: bold;
@@ -200,11 +200,23 @@ h1 {
 
 #switchCount {
     background-color: #f4c2d7;
-    color: #5c5470;
+    color: #7c6a9c;
     padding: 6px 14px;
     border-radius: 15px;
     font-size: 13px;
     font-weight: 700;
     margin-top: 8px;
     box-shadow: 0 2px 8px rgba(244, 194, 215, 0.4);
+}
+
+#notepad {
+    width: 180px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    resize: none;
+    background-color: #ddd6fe;
+    color: #5c5470;
 }
