@@ -260,3 +260,7 @@ h1 {
     color: #5c4a1a;
     box-shadow: 3px 5px 12px rgba(0,0,0,0.25);
 }
+
+#plant-svg {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
