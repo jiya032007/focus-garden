@@ -114,6 +114,7 @@ button {
 
 #plant-svg {
     transition: width 0.5s ease, height 0.5s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
 #plant-wrapper.grown {
@@ -177,6 +178,7 @@ h1 {
     font-weight: 700;
     color: #7c6a9c;
     margin-bottom: 40px;
+    letter-spacing: 1px;
 }
 
 #unlockBanner {
@@ -209,36 +211,6 @@ h1 {
     box-shadow: 0 2px 8px rgba(244, 194, 215, 0.4);
 }
 
-#notepad {
-    width: 180px;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    resize: none;
-    background-color: #ddd6fe;
-    color: #5c5470;
-}
-
-#notepadUnlock {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-}
-
-#notepad {
-    width: 250px;
-    padding: 15px;
-    border-radius: 15px;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    resize: none;
-    background-color: #ddd6fe;
-    color: #5c5470;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
 #notepadUnlock {
     position: fixed;
     bottom: 30px;
@@ -259,11 +231,4 @@ h1 {
     background-image: repeating-linear-gradient(#fff9b0, #fff9b0 27px, #e8dc7a 28px);
     color: #5c4a1a;
     box-shadow: 3px 5px 12px rgba(0,0,0,0.25);
-}
-
-#plant-svg {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-}
-h1 {
-    letter-spacing: 1px;
 }
