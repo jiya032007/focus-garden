@@ -86,6 +86,22 @@ function updateUnlockProgress() {
     } else {
         document.getElementById('unlockProgress').innerText = "";
     }
+}function updateLiveProgress(liveTotalMinutes) {
+    if (!localStorage.getItem('notepadUnlocked')) {
+        const remainingSeconds = (1 - liveTotalMinutes) * 60;
+
+        if (remainingSeconds <= 30 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
+            showUnlockBanner("✨ Something's coming soon...");
+            localStorage.setItem('suspenseShown', 'true');
+        }
+
+        if (remainingSeconds <= 0) {
+            checkUnlocks();
+        }
+
+        document.getElementById('unlockProgress').innerText = 
+            remainingSeconds > 0 ? formatTime(remainingSeconds) + " until surprise" : "Unlocked!";
+    }
 }
 
 function formatTime(totalSeconds) {
@@ -192,4 +208,4 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
 
 checkUnlocks();
 updateTodayTotal();
-updateUnlockProgress(); //
+updateUnlockProgress(); 
