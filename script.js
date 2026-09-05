@@ -163,6 +163,8 @@ document.getElementById('pauseBtn').addEventListener('click', () => {
     timerInterval = null;
     const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
+    seconds = 0;
+    updateDisplay();
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
