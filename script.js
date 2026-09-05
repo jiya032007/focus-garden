@@ -111,23 +111,6 @@ function formatTime(totalSeconds) {
     return (hrs > 0 ? hrs + ":" : "") + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
 }
 
-function updateLiveProgress(liveTotalMinutes) {
-    if (!localStorage.getItem('notepadUnlocked')) {
-        const remainingSeconds = (1 - liveTotalMinutes) * 60;
-
-        if (remainingSeconds <= 30 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
-            showUnlockBanner("✨ Something's coming soon...");
-            localStorage.setItem('suspenseShown', 'true');
-        }
-
-        if (remainingSeconds <= 0) {
-            checkUnlocks();
-        }
-
-        document.getElementById('unlockProgress').innerText = 
-            remainingSeconds > 0 ? formatTime(remainingSeconds) + " until surprise" : "Unlocked!";
-    }
-}
 
 function saveSessionMinutes(minutesToAdd) {
     const today = new Date().toDateString();
