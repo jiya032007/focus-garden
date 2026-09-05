@@ -161,15 +161,13 @@ document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
-    const minutesThisSession = seconds / 60;
-    saveSessionMinutes(minutesThisSession);
-    seconds = 0;
-    updateDisplay();
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
+    const minutesThisSession = seconds / 60;
+    saveSessionMinutes(minutesThisSession);
     seconds = 0;
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
