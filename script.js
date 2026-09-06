@@ -4,6 +4,7 @@ let timerInterval = null;
 let startTime = null;
 let tabSwitchCount = 0;
 let currentMode = 'strict';
+let sessionInterrupted = false;
 
 function updateDisplay() {
     const hrs = Math.floor(seconds / 3600);
@@ -71,7 +72,7 @@ function showUnlockBanner(message) {
 
 function checkUnlocks() {
     if (!localStorage.getItem('notepadUnlocked')) {
-        if (seconds >= 3600) {
+        if (seconds >= 10 && !sessionInterrupted) {
             document.getElementById('notepadUnlock').style.display = 'block';
             showUnlockBanner("🎉 Notepad unlocked!");
             localStorage.setItem('notepadUnlocked', 'true');
@@ -79,20 +80,18 @@ function checkUnlocks() {
     }
 }
 
-function updateUnlockProgress() {
-    const totalMinutes = getTotalMinutes();
-    if (!localStorage.getItem('notepadUnlocked')) {
-        const remaining = 1 - totalMinutes;
-        document.getElementById('unlockProgress').innerText = remaining > 0 ? remaining.toFixed(1) + " min to unlock a surprise" : "Almost there!";
-    } else {
-        document.getElementById('unlockProgress').innerText = "";
-    }
+function formatTime(totalSeconds) {
+    const hrs = Math.floor(totalSeconds / 3600);
+    const mins = Math.floor((totalSeconds % 3600) / 60);
+    const secs = Math.floor(totalSeconds % 60);
+    return (hrs > 0 ? hrs + ":" : "") + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
 }
+
 function updateLiveProgress(currentSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        const remainingSeconds = 3600 - currentSeconds;
+        const remainingSeconds = 10 - currentSeconds;
 
-        if (remainingSeconds <= 30 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
+        if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
@@ -106,22 +105,12 @@ function updateLiveProgress(currentSeconds) {
     }
 }
 
-function formatTime(totalSeconds) {
-    const hrs = Math.floor(totalSeconds / 3600);
-    const mins = Math.floor((totalSeconds % 3600) / 60);
-    const secs = Math.floor(totalSeconds % 60);
-    return (hrs > 0 ? hrs + ":" : "") + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
-}
-
-
 function saveSessionMinutes(minutesToAdd) {
     const today = new Date().toDateString();
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
-    checkUnlocks();
-    updateUnlockProgress();
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
@@ -132,23 +121,16 @@ document.getElementById('startBtn').addEventListener('click', () => {
     document.getElementById('stage').offsetHeight;
     document.getElementById('stage').style.animation = 'popIn 0.4s ease forwards';
     timerInterval = setInterval(() => {
-    seconds = Math.floor((Date.now() - startTime) / 1000);
-    updateDisplay();
-    updateLiveProgress(seconds);
-}, 1000);
+        seconds = Math.floor((Date.now() - startTime) / 1000);
         updateDisplay();
-
-        const currentSessionMinutes = seconds / 60;
-        const previousMinutes = getTotalMinutes();
-        const liveTotal = previousMinutes + currentSessionMinutes;
-
-        updateLiveProgress(liveTotal);
+        updateLiveProgress(seconds);
     }, 1000);
 });
 
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
+    sessionInterrupted = true;
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -157,6 +139,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
     seconds = 0;
+    sessionInterrupted = false;
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
@@ -167,6 +150,7 @@ document.addEventListener('visibilitychange', () => {
         if (currentMode === 'strict') {
             clearInterval(timerInterval);
             timerInterval = null;
+            sessionInterrupted = true;
             alert("You left the tab! Timer paused (Strict Mode).");
         } else {
             tabSwitchCount++;
@@ -194,6 +178,4 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
     location.reload();
 });
 
-checkUnlocks();
 updateTodayTotal();
-updateUnlockProgress(); 
