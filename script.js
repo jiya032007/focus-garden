@@ -2,9 +2,9 @@
 let seconds = 0;
 let timerInterval = null;
 let startTime = null;
+let continuousStart = null;
 let tabSwitchCount = 0;
 let currentMode = 'strict';
-let sessionInterrupted = false;
 
 function updateDisplay() {
     const hrs = Math.floor(seconds / 3600);
@@ -70,9 +70,9 @@ function showUnlockBanner(message) {
     setTimeout(() => banner.classList.remove('show'), 3000);
 }
 
-function checkUnlocks() {
+function checkUnlocks(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        if (seconds >= 10 && !sessionInterrupted) {
+        if (continuousSeconds >= 10) {
             document.getElementById('notepadUnlock').style.display = 'block';
             showUnlockBanner("🎉 Notepad unlocked!");
             localStorage.setItem('notepadUnlocked', 'true');
@@ -87,9 +87,9 @@ function formatTime(totalSeconds) {
     return (hrs > 0 ? hrs + ":" : "") + mins.toString().padStart(2, '0') + ":" + secs.toString().padStart(2, '0');
 }
 
-function updateLiveProgress(currentSeconds) {
+function updateLiveProgress(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        const remainingSeconds = 10 - currentSeconds;
+        const remainingSeconds = 10 - continuousSeconds;
 
         if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
@@ -97,7 +97,7 @@ function updateLiveProgress(currentSeconds) {
         }
 
         if (remainingSeconds <= 0) {
-            checkUnlocks();
+            checkUnlocks(continuousSeconds);
         }
 
         document.getElementById('unlockProgress').innerText = 
@@ -117,20 +117,21 @@ document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
     recordTodayUsage();
     startTime = Date.now() - (seconds * 1000);
+    continuousStart = Date.now();
     document.getElementById('stage').style.animation = 'none';
     document.getElementById('stage').offsetHeight;
     document.getElementById('stage').style.animation = 'popIn 0.4s ease forwards';
     timerInterval = setInterval(() => {
         seconds = Math.floor((Date.now() - startTime) / 1000);
         updateDisplay();
-        updateLiveProgress(seconds);
+        const continuousSeconds = Math.floor((Date.now() - continuousStart) / 1000);
+        updateLiveProgress(continuousSeconds);
     }, 1000);
 });
 
 document.getElementById('pauseBtn').addEventListener('click', () => {
     clearInterval(timerInterval);
     timerInterval = null;
-    sessionInterrupted = true;
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -139,7 +140,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
     seconds = 0;
-    sessionInterrupted = false;
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
@@ -150,7 +150,6 @@ document.addEventListener('visibilitychange', () => {
         if (currentMode === 'strict') {
             clearInterval(timerInterval);
             timerInterval = null;
-            sessionInterrupted = true;
             alert("You left the tab! Timer paused (Strict Mode).");
         } else {
             tabSwitchCount++;
