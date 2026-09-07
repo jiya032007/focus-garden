@@ -72,7 +72,7 @@ function showUnlockBanner(message) {
 
 function checkUnlocks(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        if (continuousSeconds >= 10) {
+        if (continuousSeconds >= 3600) {
             document.getElementById('notepadUnlock').style.display = 'block';
             showUnlockBanner("🎉 Notepad unlocked!");
             localStorage.setItem('notepadUnlocked', 'true');
@@ -89,9 +89,9 @@ function formatTime(totalSeconds) {
 
 function updateLiveProgress(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        const remainingSeconds = 10 - continuousSeconds;
+        const remainingSeconds = 3600 - continuousSeconds;
 
-        if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
+        if (remainingSeconds <= 300 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
