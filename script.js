@@ -50,6 +50,29 @@ function recordTodayUsage() {
     }
 }
 
+function calculateStreak() {
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (usedDays.length === 0) return 0;
+
+    let dates = usedDays.map(d => new Date(d)).sort((a, b) => b - a);
+    let streak = 1;
+
+    for (let i = 0; i < dates.length - 1; i++) {
+        let diffDays = Math.round((dates[i] - dates[i + 1]) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+            streak++;
+        } else {
+            break;
+        }
+    }
+    return streak;
+}
+
+function updateStreakDisplay() {
+    const streak = calculateStreak();
+    document.getElementById('streakDisplay').innerText = "🔥 " + streak + " day streak";
+}
+
 function getTotalMinutes() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     return Object.values(dailyMinutes).reduce((sum, mins) => sum + mins, 0);
@@ -116,6 +139,7 @@ function saveSessionMinutes(minutesToAdd) {
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
     recordTodayUsage();
+    updateStreakDisplay();
     startTime = Date.now() - (seconds * 1000);
     continuousStart = Date.now();
     document.getElementById('stage').style.animation = 'none';
@@ -178,3 +202,4 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
 });
 
 updateTodayTotal();
+updateStreakDisplay();
