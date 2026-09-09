@@ -224,6 +224,17 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
     location.reload();
 });
 
+document.getElementById('devStreakBtn').addEventListener('click', () => {
+    let fakeDays = [];
+    for (let i = 0; i < 10; i++) {
+        let date = new Date();
+        date.setDate(date.getDate() - i);
+        fakeDays.push(date.toDateString());
+    }
+    localStorage.setItem('usedDays', JSON.stringify(fakeDays));
+    updateStreakDisplay();
+    checkUnlocks(0);
+});
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
