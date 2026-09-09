@@ -101,6 +101,13 @@ function checkUnlocks(continuousSeconds) {
             localStorage.setItem('notepadUnlocked', 'true');
         }
     }
+
+    const streak = calculateStreak();
+    if (streak >= 10 && !localStorage.getItem('calculatorUnlocked')) {
+        document.getElementById('calculatorUnlock').style.display = 'block';
+        showUnlockBanner("🎉 Calculator unlocked!");
+        localStorage.setItem('calculatorUnlocked', 'true');
+    }
 }
 
 function formatTime(totalSeconds) {
@@ -134,6 +141,22 @@ function saveSessionMinutes(minutesToAdd) {
     dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
+}
+
+function calcInput(value) {
+    document.getElementById('calcDisplay').value += value;
+}
+
+function calcClear() {
+    document.getElementById('calcDisplay').value = '';
+}
+
+function calcEquals() {
+    try {
+        document.getElementById('calcDisplay').value = eval(document.getElementById('calcDisplay').value);
+    } catch {
+        document.getElementById('calcDisplay').value = 'Error';
+    }
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
@@ -203,3 +226,4 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
 
 updateTodayTotal();
 updateStreakDisplay();
+checkUnlocks(0);

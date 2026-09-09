@@ -47,6 +47,27 @@
             <div id="notepadUnlock" style="display: none;">
                 <textarea id="notepad" placeholder="Quick notes..." rows="6"></textarea>
             </div>
+            <div id="calculatorUnlock" style="display: none;">
+                <input type="text" id="calcDisplay" readonly>
+                <div class="calc-buttons">
+                    <button class="calc-btn" onclick="calcInput('7')">7</button>
+                    <button class="calc-btn" onclick="calcInput('8')">8</button>
+                    <button class="calc-btn" onclick="calcInput('9')">9</button>
+                    <button class="calc-btn" onclick="calcInput('/')">/</button>
+                    <button class="calc-btn" onclick="calcInput('4')">4</button>
+                    <button class="calc-btn" onclick="calcInput('5')">5</button>
+                    <button class="calc-btn" onclick="calcInput('6')">6</button>
+                    <button class="calc-btn" onclick="calcInput('*')">×</button>
+                    <button class="calc-btn" onclick="calcInput('1')">1</button>
+                    <button class="calc-btn" onclick="calcInput('2')">2</button>
+                    <button class="calc-btn" onclick="calcInput('3')">3</button>
+                    <button class="calc-btn" onclick="calcInput('-')">-</button>
+                    <button class="calc-btn" onclick="calcInput('0')">0</button>
+                    <button class="calc-btn" onclick="calcClear()">C</button>
+                    <button class="calc-btn" onclick="calcEquals()">=</button>
+                    <button class="calc-btn" onclick="calcInput('+')">+</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

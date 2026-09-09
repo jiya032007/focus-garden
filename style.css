@@ -232,3 +232,43 @@ h1 {
     color: #5c4a1a;
     box-shadow: 3px 5px 12px rgba(0,0,0,0.25);
 }
+
+#calculatorUnlock {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #e9d8fd;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+#calcDisplay {
+    width: 180px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+    text-align: right;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.calc-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #d6bcfa;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.calc-btn:hover {
+    background-color: #b794f6;
+}
