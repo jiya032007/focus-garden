@@ -95,18 +95,18 @@ function showUnlockBanner(message) {
 
 function checkUnlocks(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        if (continuousSeconds >= 3600) {
+        if (continuousSeconds >= 10) {
             document.getElementById('notepadUnlock').style.display = 'block';
             showUnlockBanner("🎉 Notepad unlocked!");
             localStorage.setItem('notepadUnlocked', 'true');
         }
-    }
-
-    const streak = calculateStreak();
-    if (streak >= 10 && !localStorage.getItem('calculatorUnlocked')) {
-        document.getElementById('calculatorUnlock').style.display = 'block';
-        showUnlockBanner("🎉 Calculator unlocked!");
-        localStorage.setItem('calculatorUnlocked', 'true');
+    } else if (!localStorage.getItem('calculatorUnlocked')) {
+        const streak = calculateStreak();
+        if (streak >= 3) {
+            document.getElementById('calculatorUnlock').style.display = 'block';
+            showUnlockBanner("🎉 Calculator unlocked!");
+            localStorage.setItem('calculatorUnlocked', 'true');
+        }
     }
 }
 
@@ -119,9 +119,9 @@ function formatTime(totalSeconds) {
 
 function updateLiveProgress(continuousSeconds) {
     if (!localStorage.getItem('notepadUnlocked')) {
-        const remainingSeconds = 3600 - continuousSeconds;
+        const remainingSeconds = 10 - continuousSeconds;
 
-        if (remainingSeconds <= 300 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
+        if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
@@ -227,14 +227,3 @@ document.getElementById('devResetBtn').addEventListener('click', () => {
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
-document.getElementById('devStreakBtn').addEventListener('click', () => {
-    let fakeDays = [];
-    for (let i = 0; i < 10; i++) {
-        let date = new Date();
-        date.setDate(date.getDate() - i);
-        fakeDays.push(date.toDateString());
-    }
-    localStorage.setItem('usedDays', JSON.stringify(fakeDays));
-    updateStreakDisplay();
-    checkUnlocks(0);
-});
