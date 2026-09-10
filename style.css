@@ -211,10 +211,22 @@ h1 {
     box-shadow: 0 2px 8px rgba(244, 194, 215, 0.4);
 }
 
-#notepadUnlock {
+.tools-panel {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    top: 0;
+    right: 0;
+    width: 520px;
+    height: 100vh;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.3);
+}
+
+#notepadUnlock {
     transform: rotate(-2deg);
 }
 
@@ -234,9 +246,6 @@ h1 {
 }
 
 #calculatorUnlock {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
     background-color: #e9d8fd;
     padding: 15px;
     border-radius: 15px;
@@ -273,28 +282,6 @@ h1 {
     background-color: #b794f6;
 }
 
-.tools-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 520px;
-    height: 100vh;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(255,255,255,0.3);
-}
-
-#notepadUnlock {
-    transform: rotate(-2deg);
-}
-
-#calculatorUnlock {
-    background-color: #e9d8fd;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+.calc-equals {
+    background-color: #b794f6;
 }

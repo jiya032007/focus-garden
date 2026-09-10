@@ -159,6 +159,15 @@ function calcEquals() {
     }
 }
 
+function calcSqrt() {
+    try {
+        const current = parseFloat(document.getElementById('calcDisplay').value);
+        document.getElementById('calcDisplay').value = Math.sqrt(current);
+    } catch {
+        document.getElementById('calcDisplay').value = 'Error';
+    }
+}
+
 document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
     recordTodayUsage();
@@ -235,6 +244,7 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     updateStreakDisplay();
     checkUnlocks(0);
 });
+
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
