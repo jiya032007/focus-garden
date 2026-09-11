@@ -1,4 +1,5 @@
 // Focus Garden project
+const startSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
 let seconds = 0;
 let timerInterval = null;
 let startTime = null;
@@ -169,6 +170,7 @@ function calcSqrt() {
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
+    startSound.play();
     if (timerInterval) return;
     recordTodayUsage();
     updateStreakDisplay();
