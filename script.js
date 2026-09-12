@@ -1,5 +1,17 @@
 // Focus Garden project
 const startSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
+function playTone(frequency, duration) {
+    const context = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = context.createOscillator();
+    const gainNode = context.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(context.destination);
+    oscillator.frequency.value = frequency;
+    oscillator.type = 'sine';
+    gainNode.gain.setValueAtTime(0.1, context.currentTime);
+    oscillator.start();
+    oscillator.stop(context.currentTime + duration);
+}
 let seconds = 0;
 let timerInterval = null;
 let startTime = null;
@@ -170,7 +182,7 @@ function calcSqrt() {
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
-    startSound.play();
+    playTone(440, 0.15);
     if (timerInterval) return;
     recordTodayUsage();
     updateStreakDisplay();
@@ -188,6 +200,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
 });
 
 document.getElementById('pauseBtn').addEventListener('click', () => {
+    playTone(330, 0.15);
     clearInterval(timerInterval);
     timerInterval = null;
 });
@@ -250,3 +263,13 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
+if (seconds > 2700) {
+    if (document.getElementById('flower-svg').style.display !== 'block') {
+        playTone(660, 0.3);
+    }
+    document.getElementById('plant-svg').style.display = 'none';
+    document.getElementById('flower-svg').style.display = 'block';
+} else {
+    document.getElementById('plant-svg').style.display = 'block';
+    document.getElementById('flower-svg').style.display = 'none';
+}
