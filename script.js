@@ -1,5 +1,4 @@
 // Focus Garden project
-const startSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
 function playTone(frequency, duration) {
     const context = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = context.createOscillator();
@@ -12,12 +11,14 @@ function playTone(frequency, duration) {
     oscillator.start();
     oscillator.stop(context.currentTime + duration);
 }
+
 let seconds = 0;
 let timerInterval = null;
 let startTime = null;
 let continuousStart = null;
 let tabSwitchCount = 0;
 let currentMode = 'strict';
+let hasBloomed = false;
 
 function updateDisplay() {
     const hrs = Math.floor(seconds / 3600);
@@ -46,6 +47,10 @@ function updateDisplay() {
     if (seconds > 2700) document.body.classList.add('stage-blooming');
 
     if (seconds > 2700) {
+        if (!hasBloomed) {
+            playTone(660, 0.4);
+            hasBloomed = true;
+        }
         document.getElementById('plant-svg').style.display = 'none';
         document.getElementById('flower-svg').style.display = 'block';
     } else {
@@ -211,6 +216,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
     seconds = 0;
+    hasBloomed = false;
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
@@ -263,13 +269,3 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
-if (seconds > 2700) {
-    if (document.getElementById('flower-svg').style.display !== 'block') {
-        playTone(660, 0.3);
-    }
-    document.getElementById('plant-svg').style.display = 'none';
-    document.getElementById('flower-svg').style.display = 'block';
-} else {
-    document.getElementById('plant-svg').style.display = 'block';
-    document.getElementById('flower-svg').style.display = 'none';
-}
