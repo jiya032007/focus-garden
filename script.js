@@ -1,15 +1,17 @@
 // Focus Garden project
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
 function playTone(frequency, duration) {
-    const context = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = context.createOscillator();
-    const gainNode = context.createGain();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
     oscillator.connect(gainNode);
-    gainNode.connect(context.destination);
+    gainNode.connect(audioContext.destination);
     oscillator.frequency.value = frequency;
     oscillator.type = 'sine';
-    gainNode.gain.setValueAtTime(0.1, context.currentTime);
+    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
     oscillator.start();
-    oscillator.stop(context.currentTime + duration);
+    oscillator.stop(audioContext.currentTime + duration);
 }
 
 let seconds = 0;
@@ -48,7 +50,7 @@ function updateDisplay() {
 
     if (seconds > 2700) {
         if (!hasBloomed) {
-            playTone(660, 0.4);
+            playTone(660, 0.5);
             hasBloomed = true;
         }
         document.getElementById('plant-svg').style.display = 'none';
@@ -187,7 +189,7 @@ function calcSqrt() {
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
-    playTone(440, 0.15);
+    playTone(392, 0.3);
     if (timerInterval) return;
     recordTodayUsage();
     updateStreakDisplay();
@@ -205,7 +207,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
 });
 
 document.getElementById('pauseBtn').addEventListener('click', () => {
-    playTone(330, 0.15);
+    playTone(294, 0.3);
     clearInterval(timerInterval);
     timerInterval = null;
 });
