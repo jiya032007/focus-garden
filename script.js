@@ -142,6 +142,7 @@ function updateLiveProgress(continuousSeconds) {
         const remainingSeconds = 10 - continuousSeconds;
 
         if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
+            playTone(523, 0.2);
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
