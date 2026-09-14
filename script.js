@@ -8,7 +8,8 @@ function playTone(frequency, duration) {
     gainNode.connect(audioContext.destination);
     oscillator.frequency.value = frequency;
     oscillator.type = 'sine';
-    gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.08, audioContext.currentTime + 0.05);
     gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
     oscillator.start();
     oscillator.stop(audioContext.currentTime + duration);
@@ -142,7 +143,7 @@ function updateLiveProgress(continuousSeconds) {
         const remainingSeconds = 10 - continuousSeconds;
 
         if (remainingSeconds <= 5 && remainingSeconds > 0 && !localStorage.getItem('suspenseShown')) {
-            playTone(523, 0.2);
+            playTone(523, 0.3);
             showUnlockBanner("✨ Something's coming soon...");
             localStorage.setItem('suspenseShown', 'true');
         }
