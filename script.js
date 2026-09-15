@@ -269,6 +269,31 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     updateStreakDisplay();
     checkUnlocks(0);
 });
+function showHistory() {
+    let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const panel = document.getElementById('historyPanel');
+    
+    if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+        return;
+    }
+
+    let html = '<strong>Your Focus History</strong><br>';
+    let entries = Object.entries(dailyMinutes).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+
+    if (entries.length === 0) {
+        html += 'No sessions recorded yet.';
+    } else {
+        entries.forEach(([date, minutes]) => {
+            html += date + ': ' + minutes.toFixed(1) + ' min<br>';
+        });
+    }
+
+    panel.innerHTML = html;
+    panel.style.display = 'block';
+}
+
+document.getElementById('historyBtn').addEventListener('click', showHistory);
 
 updateTodayTotal();
 updateStreakDisplay();

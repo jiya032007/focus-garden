@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-const startSound = new Audio('https://www.soundjay.com/buttons/sounds/button-3.mp3');
 
 body {
     text-align: center;
@@ -287,4 +286,16 @@ h1 {
 
 .calc-equals {
     background-color: #b794f6;
+}
+
+#historyPanel {
+    background-color: white;
+    color: #5c5470;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: left;
+    max-height: 150px;
+    overflow-y: auto;
 }
