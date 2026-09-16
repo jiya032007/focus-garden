@@ -15,6 +15,18 @@ function playTone(frequency, duration) {
     oscillator.stop(audioContext.currentTime + duration);
 }
 
+const encouragements = [
+    "You've got this 🌱",
+    "One focused moment at a time",
+    "Let's grow something today",
+    "Small steps, real progress"
+];
+
+function showEncouragement() {
+    const message = encouragements[Math.floor(Math.random() * encouragements.length)];
+    showUnlockBanner(message);
+}
+
 let seconds = 0;
 let timerInterval = null;
 let startTime = null;
@@ -192,6 +204,7 @@ function calcSqrt() {
 
 document.getElementById('startBtn').addEventListener('click', () => {
     playTone(392, 0.3);
+    showEncouragement();
     if (timerInterval) return;
     recordTodayUsage();
     updateStreakDisplay();
@@ -269,6 +282,7 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     updateStreakDisplay();
     checkUnlocks(0);
 });
+
 function showHistory() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const panel = document.getElementById('historyPanel');
