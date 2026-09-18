@@ -257,6 +257,7 @@ document.getElementById('strictModeBtn').addEventListener('click', () => {
     document.getElementById('strictModeBtn').classList.add('active');
     document.getElementById('flexibleModeBtn').classList.remove('active');
     document.getElementById('switchCount').style.display = 'none';
+    document.getElementById('currentModeLabel').innerText = 'Strict Mode';
 });
 
 document.getElementById('flexibleModeBtn').addEventListener('click', () => {
@@ -264,6 +265,7 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
     document.getElementById('flexibleModeBtn').classList.add('active');
     document.getElementById('strictModeBtn').classList.remove('active');
     document.getElementById('switchCount').style.display = 'block';
+    document.getElementById('currentModeLabel').innerText = 'Flexible Mode';
 });
 
 document.getElementById('devResetBtn').addEventListener('click', () => {
