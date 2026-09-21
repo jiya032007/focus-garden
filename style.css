@@ -305,3 +305,34 @@ h1 {
 #currentModeLabel {
     transition: opacity 0.2s ease;
 }
+.greeting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #faf7fc;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#nameInput {
+    width: 110px;
+    padding: 6px 4px;
+    border: none;
+    border-bottom: 2px dashed rgba(250, 247, 252, 0.5);
+    background: transparent;
+    color: #faf7fc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#nameInput::placeholder {
+    color: rgba(250, 247, 252, 0.6);
+    font-weight: 400;
+}
+
+#nameInput:focus {
+    border-bottom: 2px solid #ddd6fe;
+}

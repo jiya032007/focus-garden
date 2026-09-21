@@ -21,9 +21,13 @@ const encouragements = [
     "Let's grow something today",
     "Small steps, real progress"
 ];
-
+function getName() {
+    return (localStorage.getItem('userName') || '').trim();
+}
 function showEncouragement() {
-    const message = encouragements[Math.floor(Math.random() * encouragements.length)];
+    const name = getName();
+    let message = encouragements[Math.floor(Math.random() * encouragements.length)];
+    if (name) message = name + ", " + message.charAt(0).toLowerCase() + message.slice(1);
     showUnlockBanner(message);
 }
 
@@ -294,8 +298,7 @@ function showHistory() {
         return;
     }
 
-    let html = '<strong>Your Focus History</strong><br>';
-    let entries = Object.entries(dailyMinutes).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+let html = '<strong>' + (getName() ? getName() + "'s" : 'Your') + ' Focus History</strong><br>';    let entries = Object.entries(dailyMinutes).sort((a, b) => new Date(b[0]) - new Date(a[0]));
 
     if (entries.length === 0) {
         html += 'No sessions recorded yet.';
@@ -310,6 +313,16 @@ function showHistory() {
 }
 
 document.getElementById('historyBtn').addEventListener('click', showHistory);
+const nameInput = document.getElementById('nameInput');
+nameInput.value = getName();
+
+nameInput.addEventListener('input', () => {
+    localStorage.setItem('userName', nameInput.value.trim());
+});
+
+nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') nameInput.blur();
+});
 
 updateTodayTotal();
 updateStreakDisplay();
