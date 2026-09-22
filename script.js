@@ -314,15 +314,17 @@ let html = '<strong>' + (getName() ? getName() + "'s" : 'Your') + ' Focus Histor
 
 document.getElementById('historyBtn').addEventListener('click', showHistory);
 const nameInput = document.getElementById('nameInput');
-nameInput.value = getName();
+if (nameInput) {
+    nameInput.value = getName();
 
-nameInput.addEventListener('input', () => {
-    localStorage.setItem('userName', nameInput.value.trim());
-});
+    nameInput.addEventListener('input', () => {
+        localStorage.setItem('userName', nameInput.value.trim());
+    });
 
-nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') nameInput.blur();
-});
+    nameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') nameInput.blur();
+    });
+}
 
 updateTodayTotal();
 updateStreakDisplay();

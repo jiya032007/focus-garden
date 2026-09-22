@@ -319,8 +319,8 @@ h1 {
     padding: 6px 4px;
     border: none;
     border-bottom: 2px dashed rgba(250, 247, 252, 0.5);
-    background: transparent;
-    color: #faf7fc;
+   background: rgba(255, 255, 255, 0.3);
+   color: #faf7fc;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 600;
