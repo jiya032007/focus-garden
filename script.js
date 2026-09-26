@@ -325,7 +325,22 @@ if (nameInput) {
         if (e.key === 'Enter') nameInput.blur();
     });
 }
+function setNotepadColor(main, stripe) {
+    const notepad = document.getElementById('notepad');
+    notepad.style.backgroundColor = main;
+    notepad.style.backgroundImage = `repeating-linear-gradient(${main}, ${main} 27px, ${stripe} 28px)`;
+    localStorage.setItem('notepadColor', JSON.stringify({ main, stripe }));
+}
 
+function loadNotepadColor() {
+    const saved = JSON.parse(localStorage.getItem('notepadColor'));
+    if (saved) setNotepadColor(saved.main, saved.stripe);
+}
+
+document.getElementById('clearNotepadBtn').addEventListener('click', () => {
+    document.getElementById('notepad').value = '';
+});
+loadNotepadColor();
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
