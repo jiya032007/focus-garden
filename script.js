@@ -340,7 +340,16 @@ function loadNotepadColor() {
 document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     document.getElementById('notepad').value = '';
 });
+document.getElementById('notepad').addEventListener('input', () => {
+    localStorage.setItem('notepadText', document.getElementById('notepad').value);
+});
+
+function loadNotepadText() {
+    const saved = localStorage.getItem('notepadText');
+    if (saved) document.getElementById('notepad').value = saved;
+}
 loadNotepadColor();
+loadNotepadText();
 updateTodayTotal();
 updateStreakDisplay();
 checkUnlocks(0);
