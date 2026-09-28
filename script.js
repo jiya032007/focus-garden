@@ -21,9 +21,11 @@ const encouragements = [
     "Let's grow something today",
     "Small steps, real progress"
 ];
+
 function getName() {
     return (localStorage.getItem('userName') || '').trim();
 }
+
 function showEncouragement() {
     const name = getName();
     let message = encouragements[Math.floor(Math.random() * encouragements.length)];
@@ -168,7 +170,7 @@ function updateLiveProgress(continuousSeconds) {
             checkUnlocks(continuousSeconds);
         }
 
-        document.getElementById('unlockProgress').innerText = 
+        document.getElementById('unlockProgress').innerText =
             remainingSeconds > 0 ? formatTime(remainingSeconds) + " until surprise" : "Unlocked!";
     }
 }
@@ -292,13 +294,14 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
 function showHistory() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const panel = document.getElementById('historyPanel');
-    
+
     if (panel.style.display === 'block') {
         panel.style.display = 'none';
         return;
     }
 
-let html = '<strong>' + (getName() ? getName() + "'s" : 'Your') + ' Focus History</strong><br>';    let entries = Object.entries(dailyMinutes).sort((a, b) => new Date(b[0]) - new Date(a[0]));
+    let html = '<strong>' + (getName() ? getName() + "'s" : 'Your') + ' Focus History</strong><br>';
+    let entries = Object.entries(dailyMinutes).sort((a, b) => new Date(b[0]) - new Date(a[0]));
 
     if (entries.length === 0) {
         html += 'No sessions recorded yet.';
@@ -313,6 +316,7 @@ let html = '<strong>' + (getName() ? getName() + "'s" : 'Your') + ' Focus Histor
 }
 
 document.getElementById('historyBtn').addEventListener('click', showHistory);
+
 const nameInput = document.getElementById('nameInput');
 if (nameInput) {
     nameInput.value = getName();
@@ -325,6 +329,7 @@ if (nameInput) {
         if (e.key === 'Enter') nameInput.blur();
     });
 }
+
 function setNotepadColor(main, stripe) {
     const notepad = document.getElementById('notepad');
     notepad.style.backgroundColor = main;
@@ -337,17 +342,29 @@ function loadNotepadColor() {
     if (saved) setNotepadColor(saved.main, saved.stripe);
 }
 
-document.getElementById('clearNotepadBtn').addEventListener('click', () => {
-    document.getElementById('notepad').value = '';
-});
-document.getElementById('notepad').addEventListener('input', () => {
-    localStorage.setItem('notepadText', document.getElementById('notepad').value);
-});
+function updateWordCount() {
+    const text = document.getElementById('notepad').value.trim();
+    const count = text === '' ? 0 : text.split(/\s+/).length;
+    document.getElementById('wordCount').innerText = count + (count === 1 ? ' word' : ' words');
+}
 
 function loadNotepadText() {
     const saved = localStorage.getItem('notepadText');
     if (saved) document.getElementById('notepad').value = saved;
+    updateWordCount();
 }
+
+document.getElementById('notepad').addEventListener('input', () => {
+    localStorage.setItem('notepadText', document.getElementById('notepad').value);
+    updateWordCount();
+});
+
+document.getElementById('clearNotepadBtn').addEventListener('click', () => {
+    document.getElementById('notepad').value = '';
+    localStorage.removeItem('notepadText');
+    updateWordCount();
+});
+
 loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();

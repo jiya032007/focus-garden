@@ -9,9 +9,9 @@
     <div class="app-container">
         <div class="sidebar">
             <div class="greeting">
-    <span>Hi,</span>
-    <input type="text" id="nameInput" placeholder="your name" maxlength="16" autocomplete="off">
-</div>
+                <span>Hi,</span>
+                <input type="text" id="nameInput" placeholder="your name" maxlength="16" autocomplete="off">
+            </div>
             <div id="timer">00:00</div>
             <div id="currentModeLabel" style="font-size: 11px; opacity: 0.8; color: white;">Strict Mode</div>
             <div id="todayTotal" style="font-size: 14px; margin-top: 5px; color: white; font-weight: 600;"></div>
@@ -78,19 +78,17 @@
             </div>
         </div>
         <div class="tools-panel">
-            <div class="color-picker">
-    <span style="font-size: 11px; color: #7c6a9c;">Notepad color:</span>
-    <button class="color-swatch" style="background:#fff9b0" onclick="setNotepadColor('#fff9b0', '#e8dc7a')"></button>
-    <button class="color-swatch" style="background:#c6f6d5" onclick="setNotepadColor('#c6f6d5', '#9ae6b4')"></button>
-    <button class="color-swatch" style="background:#bee3f8" onclick="setNotepadColor('#bee3f8', '#90cdf4')"></button>
-    <button class="color-swatch" style="background:#fed7e2" onclick="setNotepadColor('#fed7e2', '#fbb6ce')"></button>
-</div>
             <div id="notepadUnlock" style="display: none;">
-                <div id="notepadUnlock" style="display: none;">
-    <button id="clearNotepadBtn" style="font-size: 11px; padding: 4px 10px; margin-bottom: 5px;">Clear notes</button>
-    <textarea id="notepad" placeholder="Quick notes..." rows="6"></textarea>
-</div>
+                <div class="color-picker">
+                    <span style="font-size: 11px; color: #7c6a9c;">Notepad color:</span>
+                    <button class="color-swatch" style="background:#fff9b0" onclick="setNotepadColor('#fff9b0', '#e8dc7a')"></button>
+                    <button class="color-swatch" style="background:#c6f6d5" onclick="setNotepadColor('#c6f6d5', '#9ae6b4')"></button>
+                    <button class="color-swatch" style="background:#bee3f8" onclick="setNotepadColor('#bee3f8', '#90cdf4')"></button>
+                    <button class="color-swatch" style="background:#fed7e2" onclick="setNotepadColor('#fed7e2', '#fbb6ce')"></button>
+                </div>
+                <button id="clearNotepadBtn" style="font-size: 11px; padding: 4px 10px; margin-bottom: 5px;">Clear notes</button>
                 <textarea id="notepad" placeholder="Quick notes..." rows="6"></textarea>
+                <div id="wordCount" style="font-size: 11px; margin-top: 4px;">0 words</div>
             </div>
         </div>
     </div>
