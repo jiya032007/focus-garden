@@ -364,9 +364,23 @@ document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     localStorage.removeItem('notepadText');
     updateWordCount();
 });
+function updateLastActive() {
+    const today = new Date().toDateString();
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (usedDays.length === 0) {
+        document.getElementById('lastActive').innerText = '';
+        return;
+    }
+    const mostRecent = usedDays[usedDays.length - 1];
+    document.getElementById('lastActive').innerText =
+        mostRecent === today ? 'Active today' : 'Last active: ' + mostRecent;
+}
 
 loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateStreakDisplay();
+recordTodayUsage();
+updateStreakDisplay();
+updateLastActive();
 checkUnlocks(0);
