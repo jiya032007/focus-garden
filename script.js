@@ -250,11 +250,18 @@ document.addEventListener('visibilitychange', () => {
         if (currentMode === 'strict') {
             clearInterval(timerInterval);
             timerInterval = null;
-            alert("You left the tab! Timer paused (Strict Mode).");
+            playTone(294, 0.3);
+    document.title = "Timer paused - come back!";
         } else {
             tabSwitchCount++;
             document.getElementById('switchCount').innerText = "Tab switches: " + tabSwitchCount;
         }
+    }
+});
+
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        document.title = "Focus Garden";
     }
 });
 
