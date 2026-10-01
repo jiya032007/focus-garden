@@ -214,6 +214,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     if (timerInterval) return;
     recordTodayUsage();
     updateStreakDisplay();
+    updateLastActive();
     startTime = Date.now() - (seconds * 1000);
     continuousStart = Date.now();
     document.getElementById('stage').style.animation = 'none';
@@ -251,7 +252,7 @@ document.addEventListener('visibilitychange', () => {
             clearInterval(timerInterval);
             timerInterval = null;
             playTone(294, 0.3);
-    document.title = "Timer paused - come back!";
+            document.title = "Timer paused - come back!";
         } else {
             tabSwitchCount++;
             document.getElementById('switchCount').innerText = "Tab switches: " + tabSwitchCount;
@@ -295,6 +296,7 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     }
     localStorage.setItem('usedDays', JSON.stringify(fakeDays));
     updateStreakDisplay();
+    updateLastActive();
     checkUnlocks(0);
 });
 
@@ -371,6 +373,7 @@ document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     localStorage.removeItem('notepadText');
     updateWordCount();
 });
+
 function updateLastActive() {
     const today = new Date().toDateString();
     let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
@@ -386,8 +389,6 @@ function updateLastActive() {
 loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
-updateStreakDisplay();
-recordTodayUsage();
 updateStreakDisplay();
 updateLastActive();
 checkUnlocks(0);
