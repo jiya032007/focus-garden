@@ -181,6 +181,7 @@ function saveSessionMinutes(minutesToAdd) {
     dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
+    updateAllTimeTotal();
 }
 
 function calcInput(value) {
@@ -385,10 +386,15 @@ function updateLastActive() {
     document.getElementById('lastActive').innerText =
         mostRecent === today ? 'Active today' : 'Last active: ' + mostRecent;
 }
+function updateAllTimeTotal() {
+    const total = getTotalMinutes();
+    document.getElementById('allTimeTotal').innerText = "All-time: " + total.toFixed(1) + " min";
+}
 
 loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
+updateAllTimeTotal();
 updateStreakDisplay();
 updateLastActive();
 checkUnlocks(0);
