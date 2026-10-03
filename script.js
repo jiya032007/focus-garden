@@ -317,7 +317,8 @@ function showHistory() {
         html += 'No sessions recorded yet.';
     } else {
         entries.forEach(([date, minutes]) => {
-            html += date + ': ' + minutes.toFixed(1) + ' min<br>';
+            const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            html += shortDate + ': ' + minutes.toFixed(1) + ' min<br>';
         });
     }
 
@@ -395,6 +396,8 @@ loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
-updateStreakDisplay()
+updateStreakDisplay();git add .
+git commit -m "added all-time total minutes display"
+git push
 updateLastActive();
 checkUnlocks(0);
