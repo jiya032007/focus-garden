@@ -395,6 +395,6 @@ loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
-updateStreakDisplay();
+updateStreakDisplay()
 updateLastActive();
 checkUnlocks(0);
