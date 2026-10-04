@@ -106,6 +106,19 @@ function calculateStreak() {
     }
     return streak;
 }
+document.addEventListener('keydown', (e) => {
+    const calcVisible = document.getElementById('calculatorUnlock').style.display === 'block';
+    if (!calcVisible) return;
+    if (document.activeElement === nameInput || document.activeElement.id === 'notepad') return;
+
+    if (/[0-9+\-*/.]/.test(e.key)) {
+        calcInput(e.key);
+    } else if (e.key === 'Enter' || e.key === '=') {
+        calcEquals();
+    } else if (e.key === 'Escape' || e.key.toLowerCase() === 'c') {
+        calcClear();
+    }
+});
 
 function updateStreakDisplay() {
     const streak = calculateStreak();
