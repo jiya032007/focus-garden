@@ -207,7 +207,8 @@ function calcClear() {
 
 function calcEquals() {
     try {
-        document.getElementById('calcDisplay').value = eval(document.getElementById('calcDisplay').value);
+        const result = eval(document.getElementById('calcDisplay').value);
+        document.getElementById('calcDisplay').value = (result === Infinity || result === -Infinity) ? 'Error' : result;
     } catch {
         document.getElementById('calcDisplay').value = 'Error';
     }
