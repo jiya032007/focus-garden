@@ -119,6 +119,21 @@ document.addEventListener('keydown', (e) => {
         calcClear();
     }
 });
+document.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space') return;
+
+    const active = document.activeElement;
+    const typing = active === nameInput || active.id === 'notepad';
+    const onButton = active.tagName === 'BUTTON';
+    if (typing || onButton) return;
+
+    e.preventDefault();
+    if (timerInterval) {
+        document.getElementById('pauseBtn').click();
+    } else {
+        document.getElementById('startBtn').click();
+    }
+});
 
 function updateStreakDisplay() {
     const streak = calculateStreak();
