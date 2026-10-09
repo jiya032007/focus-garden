@@ -106,34 +106,6 @@ function calculateStreak() {
     }
     return streak;
 }
-document.addEventListener('keydown', (e) => {
-    const calcVisible = document.getElementById('calculatorUnlock').style.display === 'block';
-    if (!calcVisible) return;
-    if (document.activeElement === nameInput || document.activeElement.id === 'notepad') return;
-
-    if (/[0-9+\-*/.]/.test(e.key)) {
-        calcInput(e.key);
-    } else if (e.key === 'Enter' || e.key === '=') {
-        calcEquals();
-    } else if (e.key === 'Escape' || e.key.toLowerCase() === 'c') {
-        calcClear();
-    }
-});
-document.addEventListener('keydown', (e) => {
-    if (e.code !== 'Space') return;
-
-    const active = document.activeElement;
-    const typing = active === nameInput || active.id === 'notepad';
-    const onButton = active.tagName === 'BUTTON';
-    if (typing || onButton) return;
-
-    e.preventDefault();
-    if (timerInterval) {
-        document.getElementById('pauseBtn').click();
-    } else {
-        document.getElementById('startBtn').click();
-    }
-});
 
 function updateStreakDisplay() {
     const streak = calculateStreak();
@@ -150,6 +122,23 @@ function updateTodayTotal() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const minutesToday = dailyMinutes[today] || 0;
     document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
+}
+
+function updateAllTimeTotal() {
+    const total = getTotalMinutes();
+    document.getElementById('allTimeTotal').innerText = "All-time: " + total.toFixed(1) + " min";
+}
+
+function updateLastActive() {
+    const today = new Date().toDateString();
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (usedDays.length === 0) {
+        document.getElementById('lastActive').innerText = '';
+        return;
+    }
+    const mostRecent = usedDays[usedDays.length - 1];
+    document.getElementById('lastActive').innerText =
+        mostRecent === today ? 'Active today' : 'Last active: ' + mostRecent;
 }
 
 function showUnlockBanner(message) {
@@ -220,6 +209,11 @@ function calcClear() {
     document.getElementById('calcDisplay').value = '';
 }
 
+function calcBackspace() {
+    const display = document.getElementById('calcDisplay');
+    display.value = display.value.slice(0, -1);
+}
+
 function calcEquals() {
     try {
         const result = eval(document.getElementById('calcDisplay').value);
@@ -253,6 +247,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     timerInterval = setInterval(() => {
         seconds = Math.floor((Date.now() - startTime) / 1000);
         updateDisplay();
+        document.title = document.getElementById('timer').innerText + " - Focus Garden";
         const continuousSeconds = Math.floor((Date.now() - continuousStart) / 1000);
         updateLiveProgress(continuousSeconds);
     }, 1000);
@@ -262,6 +257,7 @@ document.getElementById('pauseBtn').addEventListener('click', () => {
     playTone(294, 0.3);
     clearInterval(timerInterval);
     timerInterval = null;
+    document.title = "Focus Garden";
 });
 
 document.getElementById('resetBtn').addEventListener('click', () => {
@@ -274,6 +270,12 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
+    document.title = "Focus Garden";
+});
+
+// Let go of focus after clicking the main buttons, so the spacebar shortcut keeps working
+document.addEventListener('click', (e) => {
+    if (e.target.matches('#startBtn, #pauseBtn, #resetBtn')) e.target.blur();
 });
 
 document.addEventListener('visibilitychange', () => {
@@ -405,28 +407,44 @@ document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     updateWordCount();
 });
 
-function updateLastActive() {
-    const today = new Date().toDateString();
-    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
-    if (usedDays.length === 0) {
-        document.getElementById('lastActive').innerText = '';
-        return;
+// Keyboard: calculator
+document.addEventListener('keydown', (e) => {
+    const calcVisible = document.getElementById('calculatorUnlock').style.display === 'block';
+    if (!calcVisible) return;
+    if (document.activeElement === nameInput || document.activeElement.id === 'notepad') return;
+
+    if (/[0-9+\-*/.]/.test(e.key)) {
+        calcInput(e.key);
+    } else if (e.key === 'Enter' || e.key === '=') {
+        calcEquals();
+    } else if (e.key === 'Backspace') {
+        calcBackspace();
+    } else if (e.key === 'Escape' || e.key.toLowerCase() === 'c') {
+        calcClear();
     }
-    const mostRecent = usedDays[usedDays.length - 1];
-    document.getElementById('lastActive').innerText =
-        mostRecent === today ? 'Active today' : 'Last active: ' + mostRecent;
-}
-function updateAllTimeTotal() {
-    const total = getTotalMinutes();
-    document.getElementById('allTimeTotal').innerText = "All-time: " + total.toFixed(1) + " min";
-}
+});
+
+// Keyboard: spacebar starts / pauses the timer
+document.addEventListener('keydown', (e) => {
+    if (e.code !== 'Space') return;
+
+    const active = document.activeElement;
+    const typing = active === nameInput || active.id === 'notepad';
+    const onButton = active.tagName === 'BUTTON';
+    if (typing || onButton) return;
+
+    e.preventDefault();
+    if (timerInterval) {
+        document.getElementById('pauseBtn').click();
+    } else {
+        document.getElementById('startBtn').click();
+    }
+});
 
 loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
-updateStreakDisplay();git add .
-git commit -m "added all-time total minutes display"
-git push
+updateStreakDisplay();
 updateLastActive();
 checkUnlocks(0);
