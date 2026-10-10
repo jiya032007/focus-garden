@@ -224,12 +224,12 @@ function calcEquals() {
 }
 
 function calcSqrt() {
-    try {
-        const current = parseFloat(document.getElementById('calcDisplay').value);
-        document.getElementById('calcDisplay').value = Math.sqrt(current);
-    } catch {
+    const current = parseFloat(document.getElementById('calcDisplay').value);
+    if (isNaN(current) || current < 0) {
         document.getElementById('calcDisplay').value = 'Error';
+        return;
     }
+    document.getElementById('calcDisplay').value = Math.sqrt(current);
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
