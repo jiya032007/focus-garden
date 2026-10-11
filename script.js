@@ -441,7 +441,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-loadNotepadColor();
+loadNotepadColo
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
