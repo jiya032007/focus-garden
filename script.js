@@ -265,6 +265,10 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     timerInterval = null;
     const minutesThisSession = seconds / 60;
     saveSessionMinutes(minutesThisSession);
+    if (minutesThisSession >= 0.1) {
+        const name = getName();
+        showUnlockBanner((name ? name + ": " : "") + "Session saved, " + minutesThisSession.toFixed(1) + " min 🌱");
+    }
     seconds = 0;
     hasBloomed = false;
     tabSwitchCount = 0;
@@ -441,7 +445,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-loadNotepadColo
+loadNotepadColor();s
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
