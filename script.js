@@ -355,6 +355,10 @@ function showHistory() {
             const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             html += shortDate + ': ' + minutes.toFixed(1) + ' min<br>';
         });
+
+        const best = entries.reduce((a, b) => (b[1] > a[1] ? b : a));
+        const bestDate = new Date(best[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        html += '<br><strong>Best day:</strong> ' + bestDate + ' (' + best[1].toFixed(1) + ' min)';
     }
 
     panel.innerHTML = html;
@@ -445,7 +449,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-loadNotepadColor();s
+loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
