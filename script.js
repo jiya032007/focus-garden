@@ -336,6 +336,25 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     checkUnlocks(0);
 });
 
+function calculateLongestStreak() {
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (usedDays.length === 0) return 0;
+
+    let dates = usedDays.map(d => new Date(d)).sort((a, b) => a - b);
+    let longest = 1;
+    let current = 1;
+
+    for (let i = 1; i < dates.length; i++) {
+        const diff = Math.round((dates[i] - dates[i - 1]) / (1000 * 60 * 60 * 24));
+        if (diff === 1) {
+            current++;
+            longest = Math.max(longest, current);
+        } else {
+            current = 1;
+        }
+    }
+    return longest;
+}
 function showHistory() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const panel = document.getElementById('historyPanel');
@@ -359,6 +378,8 @@ function showHistory() {
         const best = entries.reduce((a, b) => (b[1] > a[1] ? b : a));
         const bestDate = new Date(best[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         html += '<br><strong>Best day:</strong> ' + bestDate + ' (' + best[1].toFixed(1) + ' min)';
+        html += '<br><strong>Best day:</strong> ' + bestDate + ' (' + best[1].toFixed(1) + ' min)';
+html += '<br><strong>Longest streak:</strong> ' + calculateLongestStreak() + ' days';
     }
 
     panel.innerHTML = html;
