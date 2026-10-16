@@ -319,6 +319,7 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
 });
 
 document.getElementById('devResetBtn').addEventListener('click', () => {
+    if (!confirm('This will erase ALL your progress, notes, and unlocks. Continue?')) return;
     localStorage.clear();
     location.reload();
 });
