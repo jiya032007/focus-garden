@@ -321,6 +321,7 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
 document.getElementById('devResetBtn').addEventListener('click', () => {
     if (!confirm('This will erase ALL your progress, notes, and unlocks. Continue?')) return;
     localStorage.clear();
+    seconds = 0;
     location.reload();
 });
 
@@ -408,6 +409,13 @@ function setNotepadColor(main, stripe) {
     notepad.style.backgroundImage = `repeating-linear-gradient(${main}, ${main} 27px, ${stripe} 28px)`;
     localStorage.setItem('notepadColor', JSON.stringify({ main, stripe }));
 }
+
+window.addEventListener('pagehide', () => {
+    if (seconds > 0) {
+        saveSessionMinutes(seconds / 60);
+        seconds = 0;
+    }
+});
 
 function loadNotepadColor() {
     const saved = JSON.parse(localStorage.getItem('notepadColor'));
