@@ -189,6 +189,16 @@ function updateLiveProgress(continuousSeconds) {
 
         document.getElementById('unlockProgress').innerText =
             remainingSeconds > 0 ? formatTime(remainingSeconds) + " until surprise" : "Unlocked!";
+    } else {
+        let message;
+        if (seconds <= 900) {
+            message = formatTime(900 - seconds) + " until Growing";
+        } else if (seconds <= 2700) {
+            message = formatTime(2700 - seconds) + " until Blooming";
+        } else {
+            message = "Fully bloomed 🌸";
+        }
+        document.getElementById('unlockProgress').innerText = message;
     }
 }
 
@@ -274,6 +284,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     tabSwitchCount = 0;
     document.getElementById('switchCount').innerText = "Tab switches: 0";
     updateDisplay();
+    updateLiveProgress(0);
     document.title = "Focus Garden";
 });
 
