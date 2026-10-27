@@ -309,7 +309,7 @@ document.addEventListener('visibilitychange', () => {
 
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
-        document.title = "Focus Garden";
+        document.title = "Focus Garden"; #
     }
 });
 
