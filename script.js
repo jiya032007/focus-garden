@@ -427,7 +427,37 @@ window.addEventListener('pagehide', () => {
         seconds = 0;
     }
 });
+function gardenIconFor(minutes) {
+    if (minutes >= 30) return '🌸';
+    if (minutes >= 15) return '🌷';
+    if (minutes >= 5) return '🌿';
+    return '🌱';
+}
 
+function renderGarden() {
+    const row = document.getElementById('gardenRow');
+    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const entries = Object.entries(dailyMinutes)
+        .filter(([date, minutes]) => minutes > 0)
+        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+        .slice(-14);
+
+    row.innerHTML = '';
+
+    if (entries.length === 0) {
+        row.innerHTML = '<span class="garden-empty">Finish a session to plant your first seed 🌱</span>';
+        return;
+    }
+
+    entries.forEach(([date, minutes]) => {
+        const plant = document.createElement('span');
+        plant.className = 'garden-plant';
+        plant.textContent = gardenIconFor(minutes);
+        const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        plant.title = shortDate + ': ' + minutes.toFixed(1) + ' min';
+        row.appendChild(plant);
+    });
+}
 function loadNotepadColor() {
     const saved = JSON.parse(localStorage.getItem('notepadColor'));
     if (saved) setNotepadColor(saved.main, saved.stripe);
@@ -494,6 +524,7 @@ loadNotepadColor();
 loadNotepadText();
 updateTodayTotal();
 updateAllTimeTotal();
+renderGarden();
 updateStreakDisplay();
 updateLastActive();
 checkUnlocks(0);
