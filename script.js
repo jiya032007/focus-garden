@@ -527,4 +527,4 @@ updateAllTimeTotal();
 renderGarden();
 updateStreakDisplay();
 updateLastActive();
-checkUnlocks(0);
+checkUnlocks(0)
