@@ -393,3 +393,38 @@ h1 {
     font-size: 12px;
     opacity: 0.7;
 }
+#goalBox {
+    width: 100%;
+    font-size: 12px;
+    color: white;
+}
+
+#goalInput {
+    width: 56px;
+    margin-left: 6px;
+    padding: 3px 6px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+#goalBar {
+    height: 8px;
+    margin-top: 8px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+#goalFill {
+    height: 100%;
+    width: 0%;
+    background: #b5e5cf;
+    transition: width 0.4s ease;
+}
+
+#goalText {
+    margin-top: 4px;
+    opacity: 0.85;
+}

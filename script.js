@@ -78,6 +78,8 @@ function updateDisplay() {
         document.getElementById('plant-svg').style.display = 'block';
         document.getElementById('flower-svg').style.display = 'none';
     }
+
+    updateGoalBar(true);
 }
 
 function recordTodayUsage() {
@@ -105,6 +107,26 @@ function calculateStreak() {
         }
     }
     return streak;
+}
+
+function calculateLongestStreak() {
+    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
+    if (usedDays.length === 0) return 0;
+
+    let dates = usedDays.map(d => new Date(d)).sort((a, b) => a - b);
+    let longest = 1;
+    let current = 1;
+
+    for (let i = 1; i < dates.length; i++) {
+        const diff = Math.round((dates[i] - dates[i - 1]) / (1000 * 60 * 60 * 24));
+        if (diff === 1) {
+            current++;
+            longest = Math.max(longest, current);
+        } else {
+            current = 1;
+        }
+    }
+    return longest;
 }
 
 function updateStreakDisplay() {
@@ -166,6 +188,16 @@ function checkUnlocks(continuousSeconds) {
     }
 }
 
+// Show tools that were already unlocked in an earlier visit
+function restoreUnlockedTools() {
+    if (localStorage.getItem('notepadUnlocked')) {
+        document.getElementById('notepadUnlock').style.display = 'block';
+    }
+    if (localStorage.getItem('calculatorUnlocked')) {
+        document.getElementById('calculatorUnlock').style.display = 'block';
+    }
+}
+
 function formatTime(totalSeconds) {
     const hrs = Math.floor(totalSeconds / 3600);
     const mins = Math.floor((totalSeconds % 3600) / 60);
@@ -209,8 +241,10 @@ function saveSessionMinutes(minutesToAdd) {
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
     updateAllTimeTotal();
+    renderGarden();
 }
 
+// ---------- Calculator ----------
 function calcInput(value) {
     document.getElementById('calcDisplay').value += value;
 }
@@ -242,6 +276,7 @@ function calcSqrt() {
     document.getElementById('calcDisplay').value = Math.sqrt(current);
 }
 
+// ---------- Timer buttons ----------
 document.getElementById('startBtn').addEventListener('click', () => {
     playTone(392, 0.3);
     showEncouragement();
@@ -293,6 +328,7 @@ document.addEventListener('click', (e) => {
     if (e.target.matches('#startBtn, #pauseBtn, #resetBtn')) e.target.blur();
 });
 
+// ---------- Tab switching ----------
 document.addEventListener('visibilitychange', () => {
     if (document.hidden && timerInterval) {
         if (currentMode === 'strict') {
@@ -309,10 +345,11 @@ document.addEventListener('visibilitychange', () => {
 
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
-        document.title = "Focus Garden"; #
+        document.title = "Focus Garden";
     }
 });
 
+// ---------- Modes ----------
 document.getElementById('strictModeBtn').addEventListener('click', () => {
     currentMode = 'strict';
     document.getElementById('strictModeBtn').classList.add('active');
@@ -329,6 +366,7 @@ document.getElementById('flexibleModeBtn').addEventListener('click', () => {
     document.getElementById('currentModeLabel').innerText = 'Flexible Mode';
 });
 
+// ---------- Dev buttons ----------
 document.getElementById('devResetBtn').addEventListener('click', () => {
     if (!confirm('This will erase ALL your progress, notes, and unlocks. Continue?')) return;
     localStorage.clear();
@@ -349,25 +387,7 @@ document.getElementById('devStreakBtn').addEventListener('click', () => {
     checkUnlocks(0);
 });
 
-function calculateLongestStreak() {
-    let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
-    if (usedDays.length === 0) return 0;
-
-    let dates = usedDays.map(d => new Date(d)).sort((a, b) => a - b);
-    let longest = 1;
-    let current = 1;
-
-    for (let i = 1; i < dates.length; i++) {
-        const diff = Math.round((dates[i] - dates[i - 1]) / (1000 * 60 * 60 * 24));
-        if (diff === 1) {
-            current++;
-            longest = Math.max(longest, current);
-        } else {
-            current = 1;
-        }
-    }
-    return longest;
-}
+// ---------- History ----------
 function showHistory() {
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const panel = document.getElementById('historyPanel');
@@ -391,8 +411,7 @@ function showHistory() {
         const best = entries.reduce((a, b) => (b[1] > a[1] ? b : a));
         const bestDate = new Date(best[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         html += '<br><strong>Best day:</strong> ' + bestDate + ' (' + best[1].toFixed(1) + ' min)';
-        html += '<br><strong>Best day:</strong> ' + bestDate + ' (' + best[1].toFixed(1) + ' min)';
-html += '<br><strong>Longest streak:</strong> ' + calculateLongestStreak() + ' days';
+        html += '<br><strong>Longest streak:</strong> ' + calculateLongestStreak() + ' days';
     }
 
     panel.innerHTML = html;
@@ -401,6 +420,7 @@ html += '<br><strong>Longest streak:</strong> ' + calculateLongestStreak() + ' d
 
 document.getElementById('historyBtn').addEventListener('click', showHistory);
 
+// ---------- Name ----------
 const nameInput = document.getElementById('nameInput');
 if (nameInput) {
     nameInput.value = getName();
@@ -414,6 +434,7 @@ if (nameInput) {
     });
 }
 
+// ---------- Notepad ----------
 function setNotepadColor(main, stripe) {
     const notepad = document.getElementById('notepad');
     notepad.style.backgroundColor = main;
@@ -421,43 +442,6 @@ function setNotepadColor(main, stripe) {
     localStorage.setItem('notepadColor', JSON.stringify({ main, stripe }));
 }
 
-window.addEventListener('pagehide', () => {
-    if (seconds > 0) {
-        saveSessionMinutes(seconds / 60);
-        seconds = 0;
-    }
-});
-function gardenIconFor(minutes) {
-    if (minutes >= 30) return '🌸';
-    if (minutes >= 15) return '🌷';
-    if (minutes >= 5) return '🌿';
-    return '🌱';
-}
-
-function renderGarden() {
-    const row = document.getElementById('gardenRow');
-    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
-    const entries = Object.entries(dailyMinutes)
-        .filter(([date, minutes]) => minutes > 0)
-        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
-        .slice(-14);
-
-    row.innerHTML = '';
-
-    if (entries.length === 0) {
-        row.innerHTML = '<span class="garden-empty">Finish a session to plant your first seed 🌱</span>';
-        return;
-    }
-
-    entries.forEach(([date, minutes]) => {
-        const plant = document.createElement('span');
-        plant.className = 'garden-plant';
-        plant.textContent = gardenIconFor(minutes);
-        const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-        plant.title = shortDate + ': ' + minutes.toFixed(1) + ' min';
-        row.appendChild(plant);
-    });
-}
 function loadNotepadColor() {
     const saved = JSON.parse(localStorage.getItem('notepadColor'));
     if (saved) setNotepadColor(saved.main, saved.stripe);
@@ -486,11 +470,101 @@ document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     updateWordCount();
 });
 
-// Keyboard: calculator
+// ---------- Save time when the page closes ----------
+window.addEventListener('pagehide', () => {
+    if (seconds > 0) {
+        saveSessionMinutes(seconds / 60);
+        seconds = 0;
+    }
+});
+
+// ---------- Garden shelf ----------
+function gardenIconFor(minutes) {
+    if (minutes >= 30) return '🌸';
+    if (minutes >= 15) return '🌷';
+    if (minutes >= 5) return '🌿';
+    return '🌱';
+}
+
+function renderGarden() {
+    const row = document.getElementById('gardenRow');
+    if (!row) return;
+    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const entries = Object.entries(dailyMinutes)
+        .filter(([date, minutes]) => minutes > 0)
+        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+        .slice(-14);
+
+    row.innerHTML = '';
+
+    if (entries.length === 0) {
+        row.innerHTML = '<span class="garden-empty">Finish a session to plant your first seed 🌱</span>';
+        return;
+    }
+
+    entries.forEach(([date, minutes]) => {
+        const plant = document.createElement('span');
+        plant.className = 'garden-plant';
+        plant.textContent = gardenIconFor(minutes);
+        const shortDate = new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        plant.title = shortDate + ': ' + minutes.toFixed(1) + ' min';
+        row.appendChild(plant);
+    });
+}
+
+// ---------- Daily goal ----------
+function getGoal() {
+    return parseInt(localStorage.getItem('dailyGoal')) || 0;
+}
+
+function updateGoalBar(announce) {
+    const fill = document.getElementById('goalFill');
+    const text = document.getElementById('goalText');
+    if (!fill || !text) return;
+
+    const goal = getGoal();
+
+    if (goal <= 0) {
+        fill.style.width = '0%';
+        text.innerText = 'Set a goal to track your day';
+        return;
+    }
+
+    const today = new Date().toDateString();
+    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const done = (dailyMinutes[today] || 0) + seconds / 60;
+
+    fill.style.width = Math.min(100, (done / goal) * 100) + '%';
+    text.innerText = Math.min(done, goal).toFixed(1) + ' / ' + goal + ' min';
+
+    if (announce && done >= goal && localStorage.getItem('goalReachedDate') !== today) {
+        localStorage.setItem('goalReachedDate', today);
+        playTone(660, 0.5);
+        showUnlockBanner("🎯 Daily goal reached!");
+    }
+}
+
+const goalInput = document.getElementById('goalInput');
+if (goalInput) {
+    goalInput.value = getGoal() || '';
+    goalInput.addEventListener('change', () => {
+        const value = parseInt(goalInput.value);
+        if (value > 0) {
+            localStorage.setItem('dailyGoal', Math.min(value, 600));
+        } else {
+            localStorage.removeItem('dailyGoal');
+            goalInput.value = '';
+        }
+        updateGoalBar(false);
+    });
+}
+
+// ---------- Keyboard shortcuts ----------
+// Calculator keys
 document.addEventListener('keydown', (e) => {
     const calcVisible = document.getElementById('calculatorUnlock').style.display === 'block';
     if (!calcVisible) return;
-    if (document.activeElement === nameInput || document.activeElement.id === 'notepad') return;
+    if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
     if (/[0-9+\-*/.]/.test(e.key)) {
         calcInput(e.key);
@@ -503,12 +577,12 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Keyboard: spacebar starts / pauses the timer
+// Spacebar starts / pauses the timer
 document.addEventListener('keydown', (e) => {
     if (e.code !== 'Space') return;
 
     const active = document.activeElement;
-    const typing = active === nameInput || active.id === 'notepad';
+    const typing = ['INPUT', 'TEXTAREA'].includes(active.tagName);
     const onButton = active.tagName === 'BUTTON';
     if (typing || onButton) return;
 
@@ -520,11 +594,14 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ---------- Startup ----------
 loadNotepadColor();
 loadNotepadText();
+restoreUnlockedTools();
 updateTodayTotal();
 updateAllTimeTotal();
 renderGarden();
+updateGoalBar(false);
 updateStreakDisplay();
 updateLastActive();
 checkUnlocks(0);
