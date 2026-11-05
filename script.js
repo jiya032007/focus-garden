@@ -2,6 +2,7 @@
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 function playTone(frequency, duration) {
+    if (audioContext.state === 'suspended') audioContext.resume();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     oscillator.connect(gainNode);
@@ -40,6 +41,7 @@ let continuousStart = null;
 let tabSwitchCount = 0;
 let currentMode = 'strict';
 let hasBloomed = false;
+let bannerTimeout = null;
 
 function updateDisplay() {
     const hrs = Math.floor(seconds / 3600);
@@ -96,8 +98,13 @@ function calculateStreak() {
     if (usedDays.length === 0) return 0;
 
     let dates = usedDays.map(d => new Date(d)).sort((a, b) => b - a);
-    let streak = 1;
 
+    // A streak only counts if you were active today or yesterday
+    const today = new Date(new Date().toDateString());
+    const daysSinceLast = Math.round((today - dates[0]) / (1000 * 60 * 60 * 24));
+    if (daysSinceLast > 1) return 0;
+
+    let streak = 1;
     for (let i = 0; i < dates.length - 1; i++) {
         let diffDays = Math.round((dates[i] - dates[i + 1]) / (1000 * 60 * 60 * 24));
         if (diffDays === 1) {
@@ -143,7 +150,7 @@ function updateTodayTotal() {
     const today = new Date().toDateString();
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     const minutesToday = dailyMinutes[today] || 0;
-    document.getElementById('todayTotal').innerText = "Today: " + minutesToday + " min";
+    document.getElementById('todayTotal').innerText = "Today: " + minutesToday.toFixed(1) + " min";
 }
 
 function updateAllTimeTotal() {
@@ -158,7 +165,10 @@ function updateLastActive() {
         document.getElementById('lastActive').innerText = '';
         return;
     }
-    const mostRecent = usedDays[usedDays.length - 1];
+    const mostRecent = usedDays
+        .map(d => new Date(d))
+        .reduce((a, b) => (b > a ? b : a))
+        .toDateString();
     document.getElementById('lastActive').innerText =
         mostRecent === today ? 'Active today' : 'Last active: ' + mostRecent;
 }
@@ -168,7 +178,8 @@ function showUnlockBanner(message) {
     banner.innerText = message;
     banner.style.display = 'block';
     banner.classList.add('show');
-    setTimeout(() => banner.classList.remove('show'), 3000);
+    clearTimeout(bannerTimeout);
+    bannerTimeout = setTimeout(() => banner.classList.remove('show'), 3000);
 }
 
 function checkUnlocks(continuousSeconds) {
@@ -235,6 +246,7 @@ function updateLiveProgress(continuousSeconds) {
 }
 
 function saveSessionMinutes(minutesToAdd) {
+    if (!(minutesToAdd > 0)) return;
     const today = new Date().toDateString();
     let dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
     dailyMinutes[today] = (dailyMinutes[today] || 0) + minutesToAdd;
@@ -284,6 +296,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     recordTodayUsage();
     updateStreakDisplay();
     updateLastActive();
+    checkUnlocks(0);
     startTime = Date.now() - (seconds * 1000);
     continuousStart = Date.now();
     document.getElementById('stage').style.animation = 'none';
