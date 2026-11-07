@@ -365,6 +365,7 @@ document.addEventListener('visibilitychange', () => {
 // ---------- Modes ----------
 document.getElementById('strictModeBtn').addEventListener('click', () => {
     currentMode = 'strict';
+    localStorage.setItem('focusMode', 'strict');
     document.getElementById('strictModeBtn').classList.add('active');
     document.getElementById('flexibleModeBtn').classList.remove('active');
     document.getElementById('switchCount').style.display = 'none';
@@ -373,6 +374,7 @@ document.getElementById('strictModeBtn').addEventListener('click', () => {
 
 document.getElementById('flexibleModeBtn').addEventListener('click', () => {
     currentMode = 'flexible';
+    localStorage.setItem('focusMode', 'flexible');
     document.getElementById('flexibleModeBtn').classList.add('active');
     document.getElementById('strictModeBtn').classList.remove('active');
     document.getElementById('switchCount').style.display = 'block';
@@ -610,6 +612,9 @@ document.addEventListener('keydown', (e) => {
 // ---------- Startup ----------
 loadNotepadColor();
 loadNotepadText();
+if (localStorage.getItem('focusMode') === 'flexible') {
+    document.getElementById('flexibleModeBtn').click();
+}
 restoreUnlockedTools();
 updateTodayTotal();
 updateAllTimeTotal();
