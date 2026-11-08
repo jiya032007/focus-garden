@@ -26,6 +26,15 @@ const encouragements = [
 function getName() {
     return (localStorage.getItem('userName') || '').trim();
 }
+function updateGreeting() {
+    const hour = new Date().getHours();
+    let greeting = 'Evening,';
+    if (hour < 12) greeting = 'Morning,';
+    else if (hour < 18) greeting = 'Afternoon,';
+
+    const span = document.querySelector('.greeting span');
+    if (span) span.innerText = greeting;
+}
 
 function showEncouragement() {
     const name = getName();
@@ -612,6 +621,7 @@ document.addEventListener('keydown', (e) => {
 // ---------- Startup ----------
 loadNotepadColor();
 loadNotepadText();
+updateGreeting();
 if (localStorage.getItem('focusMode') === 'flexible') {
     document.getElementById('flexibleModeBtn').click();
 }
