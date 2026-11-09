@@ -443,6 +443,12 @@ function showHistory() {
 }
 
 document.getElementById('historyBtn').addEventListener('click', showHistory);
+document.addEventListener('click', (e) => {
+    const panel = document.getElementById('historyPanel');
+    if (panel.style.display === 'block' && !panel.contains(e.target) && e.target.id !== 'historyBtn') {
+        panel.style.display = 'none';
+    }
+});
 
 // ---------- Name ----------
 const nameInput = document.getElementById('nameInput');
