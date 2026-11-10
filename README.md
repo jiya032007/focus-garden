@@ -1,42 +1,57 @@
 # 🌱 Focus Garden
 
-A study timer that grows a little garden the longer you stay focused. Built as a personal project I actually use while studying — not just another Pomodoro clone.
+A study timer that grows a small garden while you focus. I built it because I wanted something to use while studying that felt encouraging instead of naggy.
 
-## What it does
+## How it works
 
-Focus Garden turns study sessions into something visual and a little more alive. Start a session, and a small sprout grows on screen. Stay focused long enough, and it blooms into a flower. Stay consistent across days, and you unlock small tools built into the app itself — starting with a notepad, then a calculator.
+Start a session and a sprout grows on screen. Stay focused for 15 minutes and it reaches the Growing stage. At 45 minutes it blooms into a flower. Every day you finish a session adds a plant to your garden shelf, so your history becomes something you can look at, not just a number.
 
-### Core features
+## Features
 
-- **Live timer** — tracks your session using real timestamps, so it stays accurate even if the browser tab loses focus in the background
-- **Growing plant, powered by SVG** — a hand-drawn-style sprout that grows and eventually blooms into a flower, with a gentle "breathing" glow once it's established
-- **Two focus modes**
-  - **Strict** — leaving the tab pauses your timer immediately
-  - **Flexible** — leaving the tab doesn't punish you (since legitimately checking notes or a PDF shouldn't count against you), but tracks how many times you switched away
-- **Continuous-focus unlocks** — the Notepad unlocks only after one genuinely uninterrupted stretch of focus (pausing resets the clock on this specific unlock, so it can't be gamed)
-- **Day-streak unlocks** — the Calculator unlocks after a consecutive-day streak of using the app, tracked and calculated from real usage data
-- **Persistent progress** — built with `localStorage`, so your garden, unlocks, and stats persist across sessions and days without needing a backend
-- **Gentle audio cues** — soft generated tones (via the Web Audio API) mark starting, pausing, blooming, and unlocking — no external sound files
+**Focus**
+- Timer based on real timestamps, so it stays accurate even when the browser throttles background tabs
+- Two modes: **Strict** pauses if you leave the tab, **Flexible** lets you check notes or a PDF and just counts the switches
+- Spacebar starts and pauses; the running time also shows in the browser tab title
+- Time is auto-saved if you close or reload the page mid-session
 
-## Why I built it this way
+**Progress**
+- Daily goal with a live progress bar and a banner when you reach it
+- Streak tracking that resets properly when you miss a day, plus your longest streak
+- Garden shelf showing your last 14 days as plants that grow with how long you focused
+- History panel with per-day minutes and your best day
 
-Most focus timers either do nothing interesting visually, or they try to "police" you with aggressive tab-blocking that punishes normal behavior (like checking a PDF of your notes in another tab). I wanted something that felt encouraging rather than naggy — hence the two modes, and the choice to require genuine continuous focus for the big unlock rather than just accumulated time.
+**Unlockable tools**
+- **Notepad** unlocks after one uninterrupted hour of focus. It has color choices, a word count, and autosave
+- **Calculator** unlocks after a 10-day streak, with keyboard support
+- Tools unlock in sequence and stay unlocked
+
+**Personal touches**
+- Asks your name and uses it in messages and your history
+- Soft generated sounds (Web Audio API) for starting, pausing, blooming, and unlocking, with no audio files
+
+## Design decisions
+
+- **Why two modes?** Strict-only tools punish normal behavior, like opening a PDF of your notes. Flexible mode trusts you and just keeps count.
+- **Why one continuous hour for the Notepad?** Accumulated time can be gamed with tiny sessions. One uninterrupted stretch means something.
+- **Why no backend?** Everything lives in `localStorage`, so there's nothing to install, no account, and your data stays on your device.
 
 ## Tech
 
-Plain HTML, CSS, and JavaScript — no frameworks, no build step. Built deliberately this way as a way to actually understand what each piece of the app is doing, rather than relying on a framework to handle it.
+Plain HTML, CSS, and JavaScript with no frameworks or build step. I wanted to understand every piece of it rather than hide it behind a framework.
 
-- `index.html` — structure
-- `style.css` — styling, including the SVG plant/flower and pastel color palette
-- `script.js` — timer logic, unlock conditions, `localStorage` persistence, and the Web Audio sound system
+## Run it
 
-## Status
+Clone the repo and open `index.html` in a browser.
 
-Actively in progress. Currently working on:
-- Refining the unlock sequencing and testing tools
-- Planning a weather/time-of-day sync so the garden reflects real-world conditions
-- More tools to unlock as the streak system grows
+## Roadmap
 
-## Try it
+- Weather and time-of-day sync so the garden matches the real world
+- More unlockable tools as streaks grow
+- A backend so your garden can follow you across devices
 
-Clone the repo and open `index.html` in a browser — no build step or dependencies required.
+## What I learned
+
+- Debugging state that lives in more than one place (the screen, memory, and `localStorage`) and keeping them in sync
+- Working with dates and streak logic
+- Drawing with SVG and animating it with CSS
+- Reading my own code carefully enough to find bugs before they find me
