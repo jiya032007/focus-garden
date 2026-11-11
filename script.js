@@ -499,6 +499,20 @@ document.getElementById('clearNotepadBtn').addEventListener('click', () => {
     localStorage.removeItem('notepadText');
     updateWordCount();
 });
+document.getElementById('downloadNotepadBtn').addEventListener('click', () => {
+    const text = document.getElementById('notepad').value;
+    if (!text.trim()) {
+        showUnlockBanner('Nothing to download yet');
+        return;
+    }
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'focus-notes-' + new Date().toISOString().slice(0, 10) + '.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+});
 
 // ---------- Save time when the page closes ----------
 window.addEventListener('pagehide', () => {
