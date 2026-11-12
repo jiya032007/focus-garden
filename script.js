@@ -166,7 +166,13 @@ function updateAllTimeTotal() {
     const total = getTotalMinutes();
     document.getElementById('allTimeTotal').innerText = "All-time: " + total.toFixed(1) + " min";
 }
-
+function updateYesterdayTotal() {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    const mins = dailyMinutes[d.toDateString()] || 0;
+    document.getElementById('yesterdayTotal').innerText = "Yesterday: " + mins.toFixed(1) + " min";
+}
 function updateLastActive() {
     const today = new Date().toDateString();
     let usedDays = JSON.parse(localStorage.getItem('usedDays')) || [];
@@ -512,7 +518,7 @@ document.getElementById('downloadNotepadBtn').addEventListener('click', () => {
     link.download = 'focus-notes-' + new Date().toISOString().slice(0, 10) + '.txt';
     link.click();
     URL.revokeObjectURL(url);
-});
+});sss
 
 // ---------- Save time when the page closes ----------
 window.addEventListener('pagehide', () => {
@@ -648,6 +654,7 @@ if (localStorage.getItem('focusMode') === 'flexible') {
 restoreUnlockedTools();
 updateTodayTotal();
 updateAllTimeTotal();
+updateYesterdayTotal();
 renderGarden();
 updateGoalBar(false);
 updateStreakDisplay();
