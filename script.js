@@ -166,6 +166,16 @@ function updateAllTimeTotal() {
     const total = getTotalMinutes();
     document.getElementById('allTimeTotal').innerText = "All-time: " + total.toFixed(1) + " min";
 }
+function updateWeekTotal() {
+    const dailyMinutes = JSON.parse(localStorage.getItem('dailyMinutes')) || {};
+    let total = 0;
+    for (let i = 0; i < 7; i++) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        total += dailyMinutes[d.toDateString()] || 0;
+    }
+    document.getElementById('weekTotal').innerText = "Last 7 days: " + total.toFixed(1) + " min";
+}
 function updateYesterdayTotal() {
     const d = new Date();
     d.setDate(d.getDate() - 1);
@@ -268,6 +278,7 @@ function saveSessionMinutes(minutesToAdd) {
     localStorage.setItem('dailyMinutes', JSON.stringify(dailyMinutes));
     updateTodayTotal();
     updateAllTimeTotal();
+    updateWeekTotal();
     renderGarden();
 }
 
@@ -655,6 +666,7 @@ restoreUnlockedTools();
 updateTodayTotal();
 updateAllTimeTotal();
 updateYesterdayTotal();
+updateWeekTotal();
 renderGarden();
 updateGoalBar(false);
 updateStreakDisplay();
