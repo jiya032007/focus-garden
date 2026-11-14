@@ -447,3 +447,12 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
 }
+#startBtn:hover, #pauseBtn:hover, #resetBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#startBtn:active, #pauseBtn:active, #resetBtn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
