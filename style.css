@@ -456,3 +456,7 @@ h1 {
     transform: translateY(0);
     box-shadow: none;
 }
+
+.sidebar {
+    background: linear-gradient(180deg, #a595cd 0%, #8b7bb8 100%);
+}
