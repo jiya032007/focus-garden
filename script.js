@@ -324,6 +324,7 @@ document.getElementById('startBtn').addEventListener('click', () => {
     updateLastActive();
     checkUnlocks(0);
     startTime = Date.now() - (seconds * 1000);
+        document.getElementById('timer').classList.add('running');
     continuousStart = Date.now();
     document.getElementById('stage').style.animation = 'none';
     document.getElementById('stage').offsetHeight;

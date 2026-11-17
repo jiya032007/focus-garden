@@ -460,3 +460,10 @@ h1 {
 .sidebar {
     background: linear-gradient(180deg, #a595cd 0%, #8b7bb8 100%);
 }
+#timer {
+    transition: text-shadow 0.4s ease;
+}
+
+#timer.running {
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
+}
