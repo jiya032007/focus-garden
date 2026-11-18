@@ -467,3 +467,9 @@ h1 {
 #timer.running {
     text-shadow: 0 0 14px rgba(255, 255, 255, 0.7);
 }
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #ddd6fe;
+    outline-offset: 2px;
+}
