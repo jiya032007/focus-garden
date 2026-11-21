@@ -473,3 +473,6 @@ textarea:focus-visible {
     outline: 3px solid #ddd6fe;
     outline-offset: 2px;
 }
+#goalFill.complete {
+    background: #ffd166;
+}
